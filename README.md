@@ -1,6 +1,6 @@
-# Ego Networks
+# Uncertainty in Networks
 
-A study of multiple ego network representations.
+A study of multiple node uncertainty encodings in network visualization.
 
 ## Description
 
@@ -8,7 +8,7 @@ A study of multiple ego network representations.
 ## Getting Started
 Clone the repository
 ```console
-foo@bar:~$ git clone https://github.com/velitchko/ego-net-study.git
+foo@bar:~$ git clone https://github.com/velitchko/uncertainty-net-study.git
 ```
 
 ### Dependencies
