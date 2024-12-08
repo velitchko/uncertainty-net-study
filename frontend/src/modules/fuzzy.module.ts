@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NlComponent } from '../components/nl/nl.component';
+import { FuzzyComponent } from '../components/fuzzy/fuzzy.component';
 
 @NgModule({
     declarations: [
-        NlComponent
+        FuzzyComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        NlComponent
+        FuzzyComponent
     ]
 })
-export class NlModule { }
+export class FuzzyModule { }

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LComponent } from '../components/l/l.component';
+import { EncloseComponent } from '../components/enclose/enclose.component';
 
 @NgModule({
     declarations: [
-        LComponent
+        EncloseComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        LComponent
+        EncloseComponent
     ]
 })
-export class LModule { }
+export class EncloseModule { }

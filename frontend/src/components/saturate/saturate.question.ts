@@ -2,17 +2,17 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewContainerRef } from '@
 import { ElementFactory, Question, Serializer } from 'survey-core';
 import { AngularComponentFactory, QuestionAngular } from 'survey-angular-ui';
 
-const CUSTOM_TYPE = 'l-question';
+const CUSTOM_TYPE = 'saturate-question';
 
 
 @Component({
-    selector: 'l-question',
+    selector: 'saturate-question',
     template: `
-        <app-l></app-l>
+        <app-saturate></app-saturate>
     `,
 })
 
-export class CustomLayeredQuestionComponent extends QuestionAngular<CustomLayeredQuestionModel> implements AfterViewInit {
+export class CustomSaturateQuestionComponent extends QuestionAngular<CustomSaturateQuestionModel> implements AfterViewInit {
     // call the constructor of the super class
     constructor(
         containerRef: ViewContainerRef,
@@ -22,9 +22,9 @@ export class CustomLayeredQuestionComponent extends QuestionAngular<CustomLayere
     }
 }
 
-AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomLayeredQuestionComponent);
+AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomSaturateQuestionComponent);
 
-export class CustomLayeredQuestionModel extends Question {
+export class CustomSaturateQuestionModel extends Question {
     override getType() {
         return CUSTOM_TYPE;
     }
@@ -40,7 +40,7 @@ export class CustomLayeredQuestionModel extends Question {
 
 
 ElementFactory.Instance.registerElement(CUSTOM_TYPE, (name) => {
-    return new CustomLayeredQuestionModel(name);
+    return new CustomSaturateQuestionModel(name);
 });
 
 Serializer.addClass(
@@ -54,7 +54,7 @@ Serializer.addClass(
         }
     ],
     () => {
-        return new CustomLayeredQuestionModel('');
+        return new CustomSaturateQuestionModel('');
     },
     'question'
 );

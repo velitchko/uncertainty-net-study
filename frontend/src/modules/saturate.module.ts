@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MComponent } from '../components/m/m.component';
+import { SaturateComponent } from '../components/saturate/saturate.component';
 
 @NgModule({
     declarations: [
-        MComponent
+        SaturateComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        MComponent
+        SaturateComponent
     ]
 })
-export class MModule { }
+export class SaturateModule { }

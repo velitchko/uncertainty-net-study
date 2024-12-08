@@ -2,17 +2,17 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewContainerRef } from '@
 import { ElementFactory, Question, Serializer } from 'survey-core';
 import { AngularComponentFactory, QuestionAngular } from 'survey-angular-ui';
 
-const CUSTOM_TYPE = 'nl-question';
+const CUSTOM_TYPE = 'enclose-question';
 
 
 @Component({
-    selector: 'nl-question',
+    selector: 'enclose-question',
     template: `
-        <app-nl></app-nl>
+        <app-enclose></app-enclose>
     `,
 })
 
-export class CustomNodeLinkQuestionComponent extends QuestionAngular<CustomNodeLinkQuestionModel> implements AfterViewInit {
+export class CustomEncloseQuestionComponent extends QuestionAngular<CustomEncloseQuestionModel> implements AfterViewInit {
     // call the constructor of the super class
     constructor(
         containerRef: ViewContainerRef,
@@ -22,9 +22,9 @@ export class CustomNodeLinkQuestionComponent extends QuestionAngular<CustomNodeL
     }
 }
 
-AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomNodeLinkQuestionComponent);
+AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomEncloseQuestionComponent);
 
-export class CustomNodeLinkQuestionModel extends Question {
+export class CustomEncloseQuestionModel extends Question {
     override getType() {
         return CUSTOM_TYPE;
     }
@@ -40,7 +40,7 @@ export class CustomNodeLinkQuestionModel extends Question {
 
 
 ElementFactory.Instance.registerElement(CUSTOM_TYPE, (name) => {
-    return new CustomNodeLinkQuestionModel(name);
+    return new CustomEncloseQuestionModel(name);
 });
 
 Serializer.addClass(
@@ -54,7 +54,7 @@ Serializer.addClass(
         }
     ],
     () => {
-        return new CustomNodeLinkQuestionModel('');
+        return new CustomEncloseQuestionModel('');
     },
     'question'
 );

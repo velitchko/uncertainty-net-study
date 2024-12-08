@@ -2,17 +2,17 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewContainerRef } from '@
 import { ElementFactory, Question, Serializer } from 'survey-core';
 import { AngularComponentFactory, QuestionAngular } from 'survey-angular-ui';
 
-const CUSTOM_TYPE = 'r-question';
+const CUSTOM_TYPE = 'fuzzy-question';
 
 
 @Component({
-    selector: 'r-question',
+    selector: 'fuzzy-question',
     template: `
-        <app-r></app-r>
+        <app-fuzzy></app-fuzzy>
     `,
 })
 
-export class CustomRadialQuestionComponent extends QuestionAngular<CustomRadialQuestionModel> implements AfterViewInit {
+export class CustomFuzzyQuestionComponent extends QuestionAngular<CustomFuzzyQuestionModel> implements AfterViewInit {
     // call the constructor of the super class
     constructor(
         containerRef: ViewContainerRef,
@@ -22,9 +22,9 @@ export class CustomRadialQuestionComponent extends QuestionAngular<CustomRadialQ
     }
 }
 
-AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomRadialQuestionComponent);
+AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomFuzzyQuestionComponent);
 
-export class CustomRadialQuestionModel extends Question {
+export class CustomFuzzyQuestionModel extends Question {
     override getType() {
         return CUSTOM_TYPE;
     }
@@ -40,7 +40,7 @@ export class CustomRadialQuestionModel extends Question {
 
 
 ElementFactory.Instance.registerElement(CUSTOM_TYPE, (name) => {
-    return new CustomRadialQuestionModel(name);
+    return new CustomFuzzyQuestionModel(name);
 });
 
 Serializer.addClass(
@@ -54,7 +54,7 @@ Serializer.addClass(
         }
     ],
     () => {
-        return new CustomRadialQuestionModel('');
+        return new CustomFuzzyQuestionModel('');
     },
     'question'
 );

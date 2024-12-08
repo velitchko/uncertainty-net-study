@@ -64,17 +64,17 @@ export class ResultsService {
     private taskCounter: number = 0;
 
     protected questionMap: Map<string, string> = new Map([
-        ['matrix', 'm-question'],
-        ['nodelink', 'nl-question'],
-        ['layered', 'l-question'],
-        ['radial', 'r-question']
+        ['fuzzy', 'fuzzy-question'],
+        ['wiggle', 'wiggle-question'],
+        ['saturate', 'saturate-question'],
+        ['enclose', 'enclose-question']
     ]);
 
     protected titleMap: Map<string, string> = new Map([
-        ['matrix', 'Matrix'],
-        ['nodelink', 'Node-Link'],
-        ['layered', 'Layered'],
-        ['radial', 'Radial']
+        ['fuzzy', 'Fuzziness'],
+        ['wiggle', 'Wiggliness'],
+        ['saturate', 'Saturation'],
+        ['enclose', 'Enclosure']
     ]);
 
     protected taskInputType: Map<string, string> = new Map([
@@ -87,7 +87,7 @@ export class ResultsService {
     ]);
 
     protected tutorialRepresenation: Map<string, string> = new Map([
-        ['matrix', `
+        ['fuzzy', `
             <p style="padding-bottom: .5em;">
             Adjacency matrix representations of ego networks display the connectivity between entities tabularly. <b>Each entity, i.e. node, is represented twice</b>, once as a labeled row, and once as a labeled column. If a connection, i.e. an edge, exists between two nodes the corresponding matrix cell is “filled”. This means that <b>each edge is represented twice as well</b>. For example, if an edge connects nodes 3 and 5, then the matrix cells at locations (3,5) and (5,3) are filled in. Don’t count these twice though - this is still just one edge. 
             </p>
@@ -101,7 +101,7 @@ export class ResultsService {
             <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
             </p>
         `],
-        ['nodelink', `
+        ['wiggle', `
             <p style="padding-bottom: .5em;">
             The node-link diagram is the most common form of network representation. In it, each entity, i.e. <b>node, is represented as a circle</b>, whose label is positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line between them. The darker the line, the stronger the edge connecting two nodes is.</b>
             </p>
@@ -115,7 +115,7 @@ export class ResultsService {
             <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
             </p>
         `],
-        ['layered', `
+        ['saturate', `
             <p style="padding-bottom: .5em;">
             In a layered node-link diagram, each entity, i.e. <b>node, is represented as a circle</b> with its label positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line</b> between them. <b>The darker the line, the stronger the edge connecting two nodes is.</b>
             </p>
@@ -129,7 +129,7 @@ export class ResultsService {
             <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
             </p>
         `],
-        ['radial', `
+        ['enclose', `
             <p style="padding-bottom: .5em;">
             In a radial node-link diagram, each entity, i.e. <b>node, is represented as a circle</b> with its label positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line between them</b>. The darker the line, the stronger the edge connecting two nodes is.
             </p>
@@ -146,13 +146,13 @@ export class ResultsService {
     ]);
 
     protected captionRepresenation: Map<string, string> = new Map([
-        ['matrix', 'Caption: The same network is represented once as a node-link diagram (left) and adjacency matrix (right). Note how the edges in the node-link diagram, i.e. the lines, become filled matrix cells in the adjacency matrix representation. Also, note how both nodes and subsequently edges are represented twice.'],
-        ['nodelink', 'Caption: A node-link diagram representation of an ego network. Note the ego\'s black color, and the various alter levels\' colors'],
-        ['layered', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the layered lines.'],
-        ['radial', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the concentric circles.']
+        ['fuzzy', 'Caption: The same network is represented once as a node-link diagram (left) and adjacency matrix (right). Note how the edges in the node-link diagram, i.e. the lines, become filled matrix cells in the adjacency matrix representation. Also, note how both nodes and subsequently edges are represented twice.'],
+        ['wiggle', 'Caption: A node-link diagram representation of an ego network. Note the ego\'s black color, and the various alter levels\' colors'],
+        ['saturate', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the layered lines.'],
+        ['enclose', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the concentric circles.']
     ]);
 
-    private surveySetup: boolean = false;
+    private surveySetup: boolean = true; // TODO: Update
 
     private results: Array<Result> = new Array<Result>();
 
@@ -241,7 +241,7 @@ export class ResultsService {
                     type: 'html',
                     html: `
                     <div>
-                        <h2>Ego Networks</h2>
+                        <h2>Uncertainty in Networks</h2>
                         <p style="padding-bottom:2em;">
                             A network is a representation of connectivity between entities. Each entity is called a <b>node</b>. Connections between nodes are called <b>edges.</b> 
                             In this study, we are particularly interested in studying so-called <b>ego networks</b>. An ego network represents connections relative to a particular focal node, the so-called <b>ego</b>. In other words: instead of visualizing an entire network, we only visualize nodes important to the ego, i.e. its neighbors, its neighbors' neighbors, etc.. 

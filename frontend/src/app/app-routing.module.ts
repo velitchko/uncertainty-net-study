@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LComponent } from '../components/l/l.component';
-import { MComponent } from '../components/m/m.component';
-import { NlComponent } from '../components/nl/nl.component';
-import { RComponent } from '../components/r/r.component';
+import { EncloseComponent } from '../components/enclose/enclose.component';
+import { SaturateComponent } from '../components/saturate/saturate.component';
+import { WiggleComponent } from '../components/wiggle/wiggle.component';
+import { FuzzyComponent } from '../components/fuzzy/fuzzy.component';
 import { SurveyComponent } from '../components/survey/survey.component';
 
 const routes: Routes = [
-  { path: 'matrix', component: MComponent },
-  { path: 'node-link', component: NlComponent },
-  { path: 'radial', component: RComponent },
-  { path: 'layered', component: LComponent },
+  { path: 'enclose', component: EncloseComponent },
+  { path: 'saturate', component: SaturateComponent },
+  { path: 'wiggle', component: WiggleComponent },
+  { path: 'fuzzy', component: FuzzyComponent },
   { path: 'survey', component: SurveyComponent },
   { path: '**', redirectTo: 'survey' }
 ];

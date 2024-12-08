@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RComponent } from '../components/r/r.component';
+import { WiggleComponent } from '../components/wiggle/wiggle.component';
 
 @NgModule({
     declarations: [
-        RComponent
+        WiggleComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        RComponent
+        WiggleComponent
     ]
 })
-export class RModule { }
+export class WiggleModule { }

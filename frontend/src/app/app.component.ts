@@ -10,7 +10,7 @@ import { CONFIG } from '../assets/config';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public title = 'Ego Network Study';
+  public title = 'Uncertainty Network Study';
   
   constructor(private http: HttpClient, protected resultsService: ResultsService, private errorService: GlobalErrorHandler) {}
 

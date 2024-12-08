@@ -2,17 +2,17 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewContainerRef } from '@
 import { ElementFactory, Question, Serializer } from 'survey-core';
 import { AngularComponentFactory, QuestionAngular } from 'survey-angular-ui';
 
-const CUSTOM_TYPE = 'm-question';
+const CUSTOM_TYPE = 'wiggle-question';
 
 
 @Component({
-    selector: 'm-question',
+    selector: 'wiggle-question',
     template: `
-        <app-m></app-m>
+        <app-wiggle></app-wiggle>
     `,
 })
 
-export class CustomMatrixQuestionComponent extends QuestionAngular<CustomMatrixQuestionModel> implements AfterViewInit {
+export class CustomWiggleQuestionComponent extends QuestionAngular<CustomWiggleQuestionModel> implements AfterViewInit {
     // call the constructor of the super class
     constructor(
         containerRef: ViewContainerRef,
@@ -22,9 +22,9 @@ export class CustomMatrixQuestionComponent extends QuestionAngular<CustomMatrixQ
     }
 }
 
-AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomMatrixQuestionComponent);
+AngularComponentFactory.Instance.registerComponent(CUSTOM_TYPE + '-question', CustomWiggleQuestionComponent);
 
-export class CustomMatrixQuestionModel extends Question {
+export class CustomWiggleQuestionModel extends Question {
     override getType() {
         return CUSTOM_TYPE;
     }
@@ -40,7 +40,7 @@ export class CustomMatrixQuestionModel extends Question {
 
 
 ElementFactory.Instance.registerElement(CUSTOM_TYPE, (name) => {
-    return new CustomMatrixQuestionModel(name);
+    return new CustomWiggleQuestionModel(name);
 });
 
 Serializer.addClass(
@@ -54,7 +54,7 @@ Serializer.addClass(
         }
     ],
     () => {
-        return new CustomMatrixQuestionModel('');
+        return new CustomWiggleQuestionModel('');
     },
     'question'
 );
