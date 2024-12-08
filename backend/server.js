@@ -4,16 +4,16 @@ const app = express();
 const uuid = require('uuid');
 const cors = require('cors');
 
-const egoNetApproaches = [ 'matrix', 'nodelink', 'radial', 'layered' ];
+const uncertaintyEncApproaches = [ 'fuzzy', 'saturate', 'enclose', 'wiggle' ];
 const taskCodes = [ 't1', 't2', 't3', 't4', 't5', 't6' ];
 
 const taskDescriptions = new Map([
-    ['t1', 'Find the 2-alter node with the largest number of neighbors.'],
-    ['t2', 'List the common neighbors of nodes 9 and 31.'],
-    ['t3', 'Count all of the neighbors of node 52'],
-    ['t4', 'Count the number of intra-1-alter edges (edges between 1-alter nodes).'],
-    ['t5', 'Count the number of 2-alter nodes.'],
-    ['t6', 'Find the alter most strongly associated with the ego node 26']
+    ['t1', ''],
+    ['t2', ''],
+    ['t3', ''],
+    ['t4', ''],
+    ['t5', ''],
+    ['t6', '']
 ]);
 
 // check the length of the files in the data dir and assign task accordingly 
@@ -27,50 +27,16 @@ const taskThresholdMap = new Map([
 ]);
 
 const encodingThresholdMap = new Map([
-    ['matrix', 25],
-    ['nodelink', 25],
-    ['radial', 25],
-    ['layered', 25]
+    ['fuzzy', 25],
+    ['saturate', 25],
+    ['enclose', 25],
+    ['wiggle', 25]
 ]);
-
-const squaresMap = new Map();
 
 // create a tracker for every user that visits the site
 let userTracker = new Map();
 
 const pilot = false;
-
-// 0: NL L R M
-// 1: M NL L R
-// 2: R M NL L
-// 3: L R M NL
-// create a map of squares based on the above pattern
-const squares = new Map([
-    [0, ['nodelink', 'layered', 'radial', 'matrix' ]],
-    [1, ['matrix', 'nodelink', 'layered', 'radial' ]],
-    [2, ['radial', 'matrix', 'nodelink', 'layered' ]],
-    [3, ['layered', 'radial', 'matrix', 'nodelink' ]]
-]);
-
-generateLatinSquares = () => {
-    console.log('🔢 Generating Latin Squares...');
-
-    let n = taskCodes.length;
-
-    for (let participantIndex = 0; participantIndex < 5; participantIndex++) {
-        let squares = [];
-        for (let i = 0; i < n; i++) {
-            let square = [];
-            for (let j = 0; j < egoNetApproaches.length; j++) {
-                let taskCode = taskCodes[i];
-                let egoNetApproach = egoNetApproaches[(j + participantIndex) % egoNetApproaches.length];
-                square.push({ egoNetApproach, taskCode });
-            }
-            squares.push(square);
-        }
-        squaresMap.set(participantIndex, squares);
-    }
-}
 
 app.use(express.json());
 app.use(cors());
@@ -84,13 +50,11 @@ app.get('/params', (req, res) => {
     // get random order of ego-net approaches
     // randomEgoNetApproaches = squares.get(userTracker.size % 4);
 
-    let randomEncoding = egoNetApproaches[0]; // start with matrix
+    let randomEncoding = uncertaintyEncApproaches[0]; // start with matrix
     
     // get list of file names in logs directory
     let logFiles = fs.readdirSync(`${__dirname}/logs`);
     let submissionFiles = fs.readdirSync(`${__dirname}/data`);
-
-    
 
     // get array of file names
     let logFileNames = logFiles.map(file => file.split('-')[1].split('.')[0]);
@@ -149,14 +113,14 @@ app.get('/params', (req, res) => {
     const randomizedTaskDescription = randomizedTaskOrder.map(task => taskDescriptions.get(task));
 
     userTracker.set(user, {
-        egoNetApproach: randomEncoding,
+        uncertaintyEncApproach: randomEncoding,
         taskCodes: randomizedTaskOrder,
         taskDescriptions: randomizedTaskDescription
     });
     
     let params = {
         user: user,
-        egoNetApproach: randomEncoding,
+        uncertaintyEncApproach: randomEncoding,
         taskCodes: randomizedTaskOrder,
         taskDescriptions: randomizedTaskDescription
     };
@@ -188,6 +152,5 @@ app.listen(8080)
     .on('error', (err) => {
         console.log(`🚒 ${err}`);
     }).on('listening', () => {
-        generateLatinSquares();
         console.log('🚀 Server is listening at http://localhost:8080');
     });
