@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Model } from 'survey-core';
 import { LayeredDarkPanelless } from "survey-core/themes/layered-dark-panelless";
 import { ResultsService } from '../../services/results.service';
+import { DataService } from '../../services/data.service';
 import { GlobalErrorHandler } from '../../services/error.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class SurveyComponent {
         end: number
     };
 
-    constructor(protected resultsService: ResultsService, private errorService: GlobalErrorHandler) {
+    constructor(protected resultsService: ResultsService, private dataService: DataService, private errorService: GlobalErrorHandler) {
         this.survey = new Model();
         
         this.timer = {
