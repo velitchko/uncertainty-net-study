@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient, protected resultsService: ResultsService, private errorService: GlobalErrorHandler) {}
 
   next(result: any) {
-    if (result) {
-      this.resultsService.setUserParams(result.user);
+    if (result.status === 200) {
+      this.resultsService.setUserParams(result.params);
       this.resultsService.setupSurvey();
       console.log('👌Got survey params from backend');
       console.log(result);
