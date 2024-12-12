@@ -37,7 +37,9 @@ type AgreementAnswer = {
 
 export type Params = {
     user: string,
-    egoNetApproach: string,
+    encoding: string,
+    dataset: string,
+    level: string,
     taskCodes: Array<string>,
     taskDescriptions: Array<string>
 };
@@ -46,14 +48,18 @@ export type Result = {
     index: number,
     time: number, 
     task: string, 
-    representation: string, 
+    encoding: string, 
+    dataset: string,
+    level: string,
     answer: string | number | QualitativeAnswer | DemographicAnswer | AgreementAnswer
 } | {
     index: number,
     time: number,
     order: Array<string>,
     task?: string,
-    reprentation: string,
+    encoding: string,
+    dataset: string,
+    level: string,
 };
 @Injectable({
     providedIn: 'root'
