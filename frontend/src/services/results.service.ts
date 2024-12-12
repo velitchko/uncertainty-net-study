@@ -367,11 +367,19 @@ export class ResultsService {
                 ]
             };
 
-            // put question after intro page
-            SURVEY_JSON.pages.splice(i * 2 + 1, 0, question);
-            SURVEY_JSON.pages.splice(i * 2 + 2, 0, feedback);
+            SURVEY_JSON.pages.push(question);
+            SURVEY_JSON.pages.push(feedback);
         });
+
+        // Move the feedback page to the end
+        const feedbackPageIndex = SURVEY_JSON.pages.findIndex(page => page.name === 'feedback');
+        if (feedbackPageIndex !== -1) {
+            const feedbackPage = SURVEY_JSON.pages.splice(feedbackPageIndex, 1)[0];
+            SURVEY_JSON.pages.push(feedbackPage);
+        }
+
         console.log(SURVEY_JSON);
+        
         this.surveySetup = true;
     }
 
@@ -380,7 +388,7 @@ export class ResultsService {
     }
 
     getEgoNetApproach(): string {
-        return this.params?.egoNetApproach || 'matrix';
+        return this.params?.encoding || 'fuzzy';
     }
 
     getSurvey(): any {
