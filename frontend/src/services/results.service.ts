@@ -201,46 +201,6 @@ export class ResultsService {
         if(increment) this.taskCounter++;
     }
 
-    // OLD VERSION BETWEEN SUBJECT
-    // setupSurvey(): void {
-    //     if (this.params === null) return;
-
-    //     console.log(this.params);
-
-    //     const task = this.params.taskCode;
-    //     const description = this.params.taskDescription;
-
-    //     // iterate over this.params.eogNetApproaches
-    //     this.params.egoNetApproaches.forEach((approach, i) => {
-    //         // construct question
-    //         const question = {
-    //             name: `${approach}-${task}`,
-    //             elements: [
-    //                 {
-    //                     type: 'text',
-    //                     placeholder: 'Enter your answer here',
-    //                     inputType: 'text',
-    //                     isRequired: true,
-    //                     title: 'Answer',
-    //                     name: `${approach}-${task}-answer`
-    //                 },
-    //                 {
-    //                     type: this.questionMap.get(approach) as string,
-    //                     title: this.titleMap.get(approach) as string,
-    //                     description: description
-    //                 }
-    //             ]
-    //         };
-
-    //         // put question after intro page
-    //         SURVEY_JSON.pages.splice(i + 1, 0, question);
-    //     });
-        
-    //     this.surveySetup = true;
-    // }
-
-
-
     setupSurvey(): void {
         if (this.params === null) return;
         
