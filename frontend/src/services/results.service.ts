@@ -84,12 +84,14 @@ export class ResultsService {
     ]);
 
     protected taskInputType: Map<string, string> = new Map([
-        ['t1', 'number'],
+        ['t1', 'text'],
         ['t2', 'text'],
-        ['t3', 'number'],
-        ['t4', 'number'],
+        ['t3', 'text'],
+        ['t4', 'text'],
         ['t5', 'number'],
-        ['t6', 'text']
+        ['t6', 'number'],
+        ['t7', 'text'],
+        ['t8', 'text'],
     ]);
 
     protected tutorialRepresenation: Map<string, string> = new Map([
