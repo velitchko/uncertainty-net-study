@@ -54,7 +54,9 @@ export class SurveyComponent {
                 index: -99,
                 time: 0,
                 task: 'intro',
-                representation: '',
+                encoding: '',
+                dataset: '',
+                level: '',
                 answer: {
                     confirm: sender.data['question_intro_confirm'],
                     agreement: sender.data['question_intro_agree']
@@ -71,7 +73,9 @@ export class SurveyComponent {
                     index: -99,
                     time: 0,
                     task: 'demographics',
-                    representation: '',
+                    encoding: '',
+                    dataset: '',
+                    level: '',
                     answer: {
                         prolificId: sender.data['prolific_id'],
                         gender: sender.data['gender'],
@@ -85,12 +89,30 @@ export class SurveyComponent {
             }
 
             if(options.oldCurrentPage.name === 'tutorial') {
-                console.log('📊 Tutorial page');
+                console.log('📊 Tutorial Node-Link page');
                 this.resultsService.pushResult({
                     index: -99,
                     time: 0,
-                    task: 'tutorial',
-                    representation: '',
+                    task: 'tutorial-nl',
+                    encoding: '',
+                    dataset: '',
+                    level: '',
+                    answer: ''
+                }, true);
+
+                this.timer.start = Date.now();
+                return;
+            }
+
+            if(options.oldCurrentPage.name === 'tutorial-rep') {
+                console.log('📊 Tutorial Representation page');
+                this.resultsService.pushResult({
+                    index: -99,
+                    time: 0,
+                    task: 'tutorial-rep',
+                    encoding: '',
+                    dataset: '',
+                    level: '',
                     answer: ''
                 }, true);
 
@@ -104,7 +126,9 @@ export class SurveyComponent {
                     index: -99,
                     time: 0,
                     task: options.oldCurrentPage.name,
-                    representation: options.oldCurrentPage.name,
+                    encoding: '',
+                    dataset: '',
+                    level: '',
                     answer: sender.data[`${options.oldCurrentPage.name}`]
                 }, true);
 
@@ -123,7 +147,9 @@ export class SurveyComponent {
                 time: time,
                 task: options.oldCurrentPage.name.split('-')[options.oldCurrentPage.name.split('-').length - 1],
                 // GET SUBSTRING FROM START TO options.newCurrentPage.name.split('-')[options.newCurrentPage.name.split('-').length - 1]
-                representation: options.oldCurrentPage.name.split('-')[0],
+                encoding: options.oldCurrentPage.name.split('-')[0],
+                dataset: options.oldCurrentPage.name.split('-')[1],
+                level: options.oldCurrentPage.name.split('-')[2],
                 answer: sender.data[`${options.oldCurrentPage.name}-answer`]
             });
         });
@@ -143,7 +169,9 @@ export class SurveyComponent {
                 index: -99,
                 time: 0,
                 task: 'qualitative-feedback',
-                representation: 'qualitative-feedback',
+                encoding: '',
+                dataset: '',
+                level: '',
                 answer: qualitativeFeedback
             });
 
