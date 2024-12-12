@@ -170,15 +170,20 @@ export class ResultsService {
 
     setUserParams(params: Params): void {
         this.params = params;
-        this.params.taskCodes.unshift('tutorial');
-        this.params.taskDescriptions.unshift('');
+    
+        this.params.taskCodes.unshift('tutorial-rep');
+        this.params.taskCodes.unshift('tutorial-nl');
+        this.params.taskDescriptions.unshift('Tutorial on how to read uncertainty representations');
+        this.params.taskDescriptions.unshift('Tutorial on how to read node-link diagrams');
 
         // add metadata to results
         this.results.push({
             index: -99,
             time: 0,
             order: this.params.taskCodes,
-            reprentation: this.params.egoNetApproach
+            encoding: this.params.encoding,
+            dataset: this.params.dataset,
+            level: this.params.level
         });
     }
 
@@ -239,17 +244,17 @@ export class ResultsService {
     setupSurvey(): void {
         if (this.params === null) return;
         
-        const approach = this.params.egoNetApproach;
+        const approach = this.params.encoding;
 
         // depending on approach plug in tutorial page
-        const tutorial = {
-            name: 'tutorial',
+        const tutorial1 = {
+            name: 'tutorial-nl',
             elements: [
                 {
                     type: 'html',
                     html: `
                     <div>
-                        <h2>Uncertainty in Networks</h2>
+                        <h2>Node-Link Diagram Tutorial</h2>
                         <p style="padding-bottom:2em;">
                             A network is a representation of connectivity between entities. Each entity is called a <b>node</b>. Connections between nodes are called <b>edges.</b> 
                             In this study, we are particularly interested in studying so-called <b>ego networks</b>. An ego network represents connections relative to a particular focal node, the so-called <b>ego</b>. In other words: instead of visualizing an entire network, we only visualize nodes important to the ego, i.e. its neighbors, its neighbors' neighbors, etc.. 
@@ -268,12 +273,40 @@ export class ResultsService {
             ]
         };
 
+        const tutorial2 = {
+            name: 'tutorial-rep',
+            elements: [
+                {
+                    type: 'html',
+                    html: `
+                    <div>
+                        <h2>Uncertainty Representation Tutorial</h2>
+                        <p style="padding-bottom:2em;">
+                            A network is a representation of connectivity between entities. Each entity is called a <b>node</b>. Connections between nodes are called <b>edges.</b> 
+                            In this study, we are particularly interested in studying so-called <b>ego networks</b>. An ego network represents connections relative to a particular focal node, the so-called <b>ego</b>. In other words: instead of visualizing an entire network, we only visualize nodes important to the ego, i.e. its neighbors, its neighbors' neighbors, etc.. 
+                            The neighbors of the ego are called <b>1-alters</b>, the neighbors of the neighbors 2-alters, and so on.
+                        </p>
+                        
+                        <h2>${this.titleMap.get(approach)}</h2>
+                        <p>${this.tutorialRepresenation.get(approach)}</p>
+                    </div>`
+                },
+                {
+                    type: this.questionMap.get(approach) as string,
+                    title: this.titleMap.get(approach) as string,
+                    description: ''
+                }
+            ]
+        };
+
+
         // put tutorial page after intro page
-        SURVEY_JSON.pages.splice(2, 0, tutorial);
+        SURVEY_JSON.pages.splice(2, 0, tutorial1);
+        SURVEY_JSON.pages.splice(3, 0, tutorial2);
 
         // iterate over this.params.eogNetApproaches
         this.params.taskCodes.forEach((task, i) => {
-            if(task === 'tutorial') return;
+            if(task === 'tutorial-nl' || task === 'tutorial-rep') return;
             // construct question
             const question = {
                 name: `${approach}-${task}`,
