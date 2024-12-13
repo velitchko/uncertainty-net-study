@@ -160,7 +160,7 @@ export class ResultsService {
         ['enclose', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the concentric circles.']
     ]);
 
-    private surveySetup: boolean = true; // TODO: Update
+    private surveySetup: boolean = false;
 
     private results: Array<Result> = new Array<Result>();
 
