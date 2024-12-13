@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import * as d3 from 'd3';
-import { Node, Edge, DataService } from '../../services/data.service';
+import { Node, Edge, Aesth, DataService } from '../../services/data.service';
 import { GlobalErrorHandler } from '../../services/error.service';
-import { CONFIG } from '../../assets/config';
 import { ResultsService } from '../../services/results.service';
 
 type NodeExt = Node & { x: number, y: number, originalPosition?: [number, number] };
@@ -14,7 +13,7 @@ type EdgeExt = Edge & { source: NodeExt, target: NodeExt };
     styleUrls: ['./wiggle.component.scss']
 })
 
-export class WiggleComponent implements OnInit {
+export class WiggleComponent implements AfterViewInit {
     private margin = {
         top: 10, 
         right: 10, 
@@ -29,24 +28,39 @@ export class WiggleComponent implements OnInit {
     private buffer: d3.Selection<SVGCircleElement, NodeExt, SVGGElement, any>;
     private labels: d3.Selection<SVGTextElement, NodeExt, SVGGElement, any>;
     private simulation: d3.Simulation<NodeExt, EdgeExt>;
+    private aesthetics: Aesth;
 
     constructor(private dataService: DataService, private errorHandler: GlobalErrorHandler, private resultsService: ResultsService) { 
-        console.log('WiggleComponent: constructor');
     }
 
-    ngOnInit(): void {
-        console.log('WiggleComponent: ngOnInit');
-        this.dataService.getGraph(CONFIG.DATA_T_ONE)
-            .then(graph => {
-                this.drawGraph({
-                    nodes: graph.nodes as NodeExt[],
-                    edges: graph.edges as EdgeExt[]
-                });
-            })
-            .catch(err => {
-                this.errorHandler.handleError(err);
-            });
+    async ngAfterViewInit(): Promise<void> {
+        console.log('FuzzyComponent: ngOnInit');
+        const meta = d3.select('#metadata').text().trim();
+        const dataset = meta.split('-')[0];
+        const variant = meta.split('-')[1];
+        const level = meta.split('-')[2];
+        const task = meta.split('-')[3];
+
+        console.log('FuzzyComponent: ngAfterViewInit: dataset', dataset);
+        console.log('FuzzyComponent: ngAfterViewInit: variant', variant);
+        console.log('FuzzyComponent: ngAfterViewInit: level', level);
+        console.log('FuzzyComponent: ngAfterViewInit: task', task);
+
+        const overrideLevel = task === 't1' || task === 't4' ? '0.0' : task === 't2' || task === 't3' ? '1.1' : 
+            (Math.random() < 0.5 ? '1.0' : Math.random() < 0.5 ? '0.1' : Math.random() < 0.5 ? '1.1' : '0.0')
+
+        const fileName = `${dataset}_${variant}.${overrideLevel}.json`;
+
+        const graph = await this.dataService.loadFilename(fileName);
+
+        this.aesthetics = graph.aesthetics;
+
+        this.drawGraph({
+            nodes: graph.nodes as NodeExt[],
+            edges: graph.edges as EdgeExt[]
+        });
     }
+
 
     private nodeR(mean: number): number {
         return 5 + Math.sqrt(1000*mean / Math.PI);
@@ -77,18 +91,25 @@ export class WiggleComponent implements OnInit {
     }
 
     private random(): void {
-        const nodes = this.nodes.data() as NodeExt[];
-
-        nodes.forEach((node: NodeExt) => {
-            if (!node.originalPosition) {
-                node.originalPosition = [node.x + CONFIG.AESTH.XOFF, node.y + CONFIG.AESTH.YOFF]
-            } 
-
-            node.x += node.originalPosition[0] + this.randomMovement(node.variance);
-            node.y += node.originalPosition[1] + this.randomMovement(node.variance);
+        this.simulation.stop();
+        this.simulation.nodes().forEach((node: NodeExt) => {
+            node.x += this.randomMovement(node.variance);
+            node.y += this.randomMovement(node.variance);
         });
 
         this.nodes
+            .transition()
+            .duration(1000)
+            .attr('cx', (d: NodeExt) => d.x)
+            .attr('cy', (d: NodeExt) => d.y);
+
+        this.labels
+            .transition()
+            .duration(1000)
+            .attr('x', (d: NodeExt) => d.x)
+            .attr('y', (d: NodeExt) => d.y);
+
+        this.buffer
             .transition()
             .duration(1000)
             .attr('cx', (d: NodeExt) => d.x)
@@ -101,21 +122,7 @@ export class WiggleComponent implements OnInit {
             .attr('y1', (d: EdgeExt) => d.source.y)
             .attr('x2', (d: EdgeExt) => d.target.x)
             .attr('y2', (d: EdgeExt) => d.target.y)
-            .on('end', () => {
-                this.simulation.restart();
-            });
-
-        this.buffer
-            .transition()
-            .duration(1000)
-            .attr('cx', (d: NodeExt) => d.x)
-            .attr('cy', (d: NodeExt) => d.y);
-
-        this.labels
-            .transition()
-            .duration(1000)
-            .attr('x', (d: NodeExt) => d.x)
-            .attr('y', (d: NodeExt) => d.y);
+            .on('end', () => { this.simulation.restart(); });
     }
 
     drawGraph(graph: { nodes: NodeExt[], edges: EdgeExt[] }): void {
@@ -144,7 +151,7 @@ export class WiggleComponent implements OnInit {
             .enter()
             .append('circle')
                 .attr('class', 'buffer')
-                .attr('r', (d: NodeExt) => this.nodeR(d.weight) + 12)
+                .attr('r', (d: NodeExt) => this.nodeR(d.mean) + 12)
                 .attr('fill', 'white');
 
         // initialize nodes
@@ -155,7 +162,8 @@ export class WiggleComponent implements OnInit {
             .enter()
             .append('circle')
                 .attr('class', 'node')
-                .attr('r', (d: NodeExt) => this.nodeR(d.weight) + 10)
+                .attr('id', (d: NodeExt) => d.id)
+                .attr('r', (d: NodeExt) => this.nodeR(d.mean) + 10)
                 .attr('fill', 'red');
 
         // initialize labels
@@ -174,12 +182,10 @@ export class WiggleComponent implements OnInit {
                 .style('font-family', '\'Fira Mono\', monospace');
 
         this.simulation = d3.forceSimulation(graph.nodes)
-            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).strength(CONFIG.LINK_STRENGTH).links(graph.edges))
-            .force('charge', d3.forceManyBody().strength(CONFIG.CHARGE_STRENGTH))
+            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).strength(this.aesthetics.strength).links(graph.edges))
+            .force('charge', d3.forceManyBody().strength(this.aesthetics.charge))
             .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .on('tick', () => {
-                this.ticked();
-            })
+            .on('tick', this.ticked.bind(this))
             .on('end', () => {
                 setInterval(() => {
                     this.random();
