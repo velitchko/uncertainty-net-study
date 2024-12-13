@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import * as d3 from 'd3';
-import { Node, Edge, DataService } from '../../services/data.service';
+import { Node, Edge, Aesth, DataService } from '../../services/data.service';
 import { GlobalErrorHandler } from '../../services/error.service';
 import { ResultsService } from '../../services/results.service';
-import { CONFIG } from '../../assets/config';
 
 type NodeExt = Node & { x: number, y: number };
 type EdgeExt = Edge & { source: NodeExt, target: NodeExt };
@@ -14,7 +13,7 @@ type EdgeExt = Edge & { source: NodeExt, target: NodeExt };
     styleUrls: ['./saturate.component.scss']
 })
 
-export class SaturateComponent implements OnInit {
+export class SaturateComponent implements AfterViewInit {
     private margin = {
         top: 10, 
         right: 10, 
@@ -29,23 +28,37 @@ export class SaturateComponent implements OnInit {
     private buffer: d3.Selection<SVGCircleElement, NodeExt, SVGGElement, any>;
     private labels: d3.Selection<SVGTextElement, NodeExt, SVGGElement, any>;
     private simulation: d3.Simulation<NodeExt, EdgeExt>;
+    private aesthetics: Aesth;
 
     constructor(private dataService: DataService, private errorHandler: GlobalErrorHandler, private resultsService: ResultsService) { 
-        console.log('Saturation: constructor');
     }
 
-    ngOnInit(): void {
-        console.log('SaturationComponent: ngOnInit');
-        this.dataService.getGraph(CONFIG.DATA_T_ONE)
-            .then(graph => {
-                this.drawGraph({
-                    nodes: graph.nodes as NodeExt[],
-                    edges: graph.edges as EdgeExt[]
-                });
-            })
-            .catch(err => {
-                this.errorHandler.handleError(err);
-            });
+    async ngAfterViewInit(): Promise<void> {
+        console.log('FuzzyComponent: ngOnInit');
+        const meta = d3.select('#metadata').text().trim();
+        const dataset = meta.split('-')[0];
+        const variant = meta.split('-')[1];
+        const level = meta.split('-')[2];
+        const task = meta.split('-')[3];
+
+        console.log('FuzzyComponent: ngAfterViewInit: dataset', dataset);
+        console.log('FuzzyComponent: ngAfterViewInit: variant', variant);
+        console.log('FuzzyComponent: ngAfterViewInit: level', level);
+        console.log('FuzzyComponent: ngAfterViewInit: task', task);
+
+        const overrideLevel = task === 't1' || task === 't4' ? '0.0' : task === 't2' || task === 't3' ? '1.1' : 
+            (Math.random() < 0.5 ? '1.0' : Math.random() < 0.5 ? '0.1' : Math.random() < 0.5 ? '1.1' : '0.0')
+
+        const fileName = `${dataset}_${variant}.${overrideLevel}.json`;
+
+        const graph = await this.dataService.loadFilename(fileName);
+
+        this.aesthetics = graph.aesthetics;
+
+        this.drawGraph({
+            nodes: graph.nodes as NodeExt[],
+            edges: graph.edges as EdgeExt[]
+        });
     }
 
     private nodeR(mean: number): number {
@@ -64,26 +77,26 @@ export class SaturateComponent implements OnInit {
 
     private ticked(): void {
         this.edges
-            .attr('x1', (d: EdgeExt) => d.source.x)
-            .attr('y1', (d: EdgeExt) => d.source.y)
-            .attr('x2', (d: EdgeExt) => d.target.x)
-            .attr('y2', (d: EdgeExt) => d.target.y);
+            .attr('x1', (d: EdgeExt) => d.source.x + this.aesthetics.xoffset)
+            .attr('y1', (d: EdgeExt) => d.source.y + this.aesthetics.yoffset)
+            .attr('x2', (d: EdgeExt) => d.target.x + this.aesthetics.xoffset)
+            .attr('y2', (d: EdgeExt) => d.target.y + this.aesthetics.yoffset);
 
         this.buffer
-            .attr('cx', (d: NodeExt) => d.x)
-            .attr('cy', (d: NodeExt) => d.y);
+            .attr('cx', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('cy', (d: NodeExt) => d.y + this.aesthetics.yoffset);
 
         this.nodes
-            .attr('cx', (d: NodeExt) => d.x)
-            .attr('cy', (d: NodeExt) => d.y);
+            .attr('cx', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('cy', (d: NodeExt) => d.y + this.aesthetics.yoffset);
 
         this.labels
-            .attr('x', (d: NodeExt) => d.x)
-            .attr('y', (d: NodeExt) => d.y);
+            .attr('x', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('y', (d: NodeExt) => d.y + this.aesthetics.yoffset);
     }
 
     drawGraph(graph: { nodes: NodeExt[], edges: EdgeExt[] }): void {
-        const svg = d3.select('#wiggle-container')
+        const svg = d3.select('#saturate-container')
             .attr('width', this.width + this.margin.left + this.margin.right)
             .attr('height', this.height + this.margin.top + this.margin.bottom)
             .append('g')
@@ -108,7 +121,7 @@ export class SaturateComponent implements OnInit {
             .enter()
             .append('circle')
                 .attr('class', 'buffer')
-                .attr('r', (d: NodeExt) => this.nodeR(d.weight) + 12)
+                .attr('r', (d: NodeExt) => this.nodeR(d.mean) + 12)
                 .attr('fill', 'white');
 
         // initialize nodes
@@ -119,7 +132,7 @@ export class SaturateComponent implements OnInit {
             .enter()
             .append('circle')
                 .attr('class', 'node')
-                .attr('r', (d: NodeExt) => this.nodeR(d.weight) + 10)
+                .attr('r', (d: NodeExt) => this.nodeR(d.mean) + 10)
                 .attr('fill', (d: NodeExt) => this.saturate(d.variance).toString());
 
         // initialize labels
@@ -138,11 +151,9 @@ export class SaturateComponent implements OnInit {
                 .style('font-family', '\'Fira Mono\', monospace');
 
         this.simulation = d3.forceSimulation(graph.nodes)
-            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).strength(CONFIG.LINK_STRENGTH).links(graph.edges))
-            .force('charge', d3.forceManyBody().strength(CONFIG.CHARGE_STRENGTH))
+            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).strength(this.aesthetics.strength).links(graph.edges))
+            .force('charge', d3.forceManyBody().strength(this.aesthetics.charge))
             .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .on('tick', () => {
-                this.ticked();
-            });
+            .on('tick', this.ticked.bind(this));
     }
 }
