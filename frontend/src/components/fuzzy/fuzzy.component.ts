@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import * as d3 from 'd3';
 import { Node, Edge, Aesth, DataService } from '../../services/data.service';
-import { CONFIG } from '../../assets/config';
 import { GlobalErrorHandler } from '../../services/error.service';
 import { ResultsService } from '../../services/results.service';
 
