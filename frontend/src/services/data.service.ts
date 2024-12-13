@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DATA_TUTORIAL } from '../assets/tutorial';
-import { CONFIG } from '../assets/config';
 
 export type Node = {
     id: string | number,
@@ -95,76 +93,114 @@ export class DataService {
         'nodes.8.1.1.json',
     ];
 
+
     private tutorialData: any;
     private parsedData: Map<string, { nodes: Array<Node>, edges: Array<Edge>, aesthetics: Aesth }>;
+    private unprocessedData: Map<string, { nodeFile: string, edgeFile: string, aestheticsFile: string, dataset: string, level: string, variant: number }>;
 
     constructor() {
         this.parsedData = new Map<string, { nodes: Array<Node>, edges: Array<Edge>, aesthetics: Aesth }>();
-        // iterate over datasets and parse data from json file in assets dir
-        this.dataSets.forEach(async (dataset) => {
-            for (const file of this.dataFiles) {
-                console.log(file);
-                const key = `${dataset}/${file}`;
-                console.log('📊 Loading and parsing data for:', key);
-                if (file.startsWith('aesth')) {
-                    const aesthetics = this.parseAesthetics(await (await fetch(`${this.dataDir}${key}`)).json());
-                    this.parsedData.set(key, { nodes: [], edges: [], aesthetics });
-                } else {
-                    await this.loadAndParseData(key);
-                }
-            }
-
-            console.log('📊 Loaded and parsed data for:', dataset);
-        });
-
-
-        // this.datasets.forEach((data: any, key: string) => {
-        //     const parsed = this.parseData(data);
-        //     this.parsedData.set(key, { nodes: parsed.nodes, edges: parsed.edges });
-        // });
-        // this.tutorialData = this.parseData(DATA_TUTORIAL);
+        this.unprocessedData = new Map<string, { nodeFile: string, edgeFile: string, aestheticsFile: string, dataset: string, level: string, variant: number }>();
+        this.loadAllData();
     }
 
     private async loadAndParseData(fileName: string): Promise<void> {
-        // try {
-            const response = await fetch(`${this.dataDir}${fileName}`);
-            console.log(response);
-           
-            const data = await response.json();
+        const response = await fetch(`${this.dataDir}${fileName}`);
+        console.log(response);
+        const data = await response.json();
 
-            console.log(data);
-            if (fileName.startsWith('nodes')) {
-                const nodes = this.parseNodes(data);
-                if (this.parsedData.has(fileName)) {
-                    const existingData = this.parsedData.get(fileName);
-                    if (existingData) {
-                        existingData.nodes = nodes.nodes;
-                        this.parsedData.set(fileName, existingData);
-                    }
-                } else {
-                    // this.parsedData.set(fileName, { nodes: nodes.nodes, edges: [] });
-                    console.log('Should not happen');
-                }
-
-            } else if (fileName.startsWith('edges')) {
-                const edges = this.parseEdges(data);
-                if (this.parsedData.has(fileName)) {
-                    const existingData = this.parsedData.get(fileName);
-                    if (existingData) {
-                        existingData.edges = edges.edges;
-                        this.parsedData.set(fileName, existingData);
-                    }
-                } else {
-                    // this.parsedData.set(fileName, { nodes: [], edges: edges.edges });
-                    console.log('Should not happen');
+        console.log(data);
+        if (fileName.startsWith('nodes')) {
+            const nodes = this.parseNodes(data);
+            if (this.parsedData.has(fileName)) {
+                const existingData = this.parsedData.get(fileName);
+                if (existingData) {
+                    existingData.nodes = nodes.nodes;
+                    this.parsedData.set(fileName, existingData);
                 }
             } else {
-                throw new Error(`Unknown file type: ${fileName}`);
+                // this.parsedData.set(fileName, { nodes: nodes.nodes, edges: [] });
+                console.log('Should not happen');
             }
-        // } catch (error) {
-        //     console.error('Error loading and parsing data:', error);
-        //     // return { nodes: [], edges: [] };
-        // }
+
+        } else if (fileName.startsWith('edges')) {
+            const edges = this.parseEdges(data);
+            if (this.parsedData.has(fileName)) {
+                const existingData = this.parsedData.get(fileName);
+                if (existingData) {
+                    existingData.edges = edges.edges;
+                    this.parsedData.set(fileName, existingData);
+                }
+            } else {
+                // this.parsedData.set(fileName, { nodes: [], edges: edges.edges });
+                console.log('Should not happen');
+            }
+        } else {
+            throw new Error(`Unknown file type: ${fileName}`);
+        }
+    }
+
+    private loadDataForDataset(dataset: string): void {
+        const aestheticsFiles = this.dataFiles.filter(file => file.startsWith('aesth'));
+        const nodesFiles = this.dataFiles.filter(file => file.startsWith('nodes'));
+        const edgesFiles = this.dataFiles.filter(file => file.startsWith('edges'));
+
+        for (const file of nodesFiles) {
+            const key = `${dataset}/${file}`;
+            const label = key.replace('.json', '').replace('nodes.', '').replace('/', '_');
+            const level = file.includes('1.1') ? 'high' : 'low';
+            const variant = parseInt(file.split('.')[1]);
+
+            this.unprocessedData.set(label, {
+                nodeFile: file,
+                edgeFile: '',
+                aestheticsFile: '',
+                dataset: dataset,
+                level: level,
+                variant: variant
+            });
+        }
+
+        for (const file of edgesFiles) {
+            const key = `${dataset}/${file}`;
+            const label = key.replace('.json', '').replace('edges.', '').replace('/', '_');
+            const level = file.includes('1.1') ? 'high' : 'low';
+            const variant = parseInt(file.split('.')[1]);
+
+            if (this.unprocessedData.has(label)) {
+                const existingData = this.unprocessedData.get(label);
+                if (existingData) {
+                    existingData.edgeFile = file;
+                    this.unprocessedData.set(label, existingData);
+                }
+            } else {
+                this.unprocessedData.set(label, {
+                    nodeFile: '',
+                    edgeFile: file,
+                    aestheticsFile: '',
+                    dataset: dataset,
+                    level: level,
+                    variant: variant
+                });
+            }
+        }
+
+        for (const file of aestheticsFiles) {
+            const variant = parseInt(file.split('.')[1]);
+
+            this.unprocessedData.forEach((value, existingKey) => {
+            if (existingKey.startsWith(dataset) && value.variant === variant) {
+                value.aestheticsFile = file;
+                this.unprocessedData.set(existingKey, value);
+            }
+            });
+        }
+    }
+
+    loadAllData():void {
+        for (const dataset of this.dataSets) {
+            this.loadDataForDataset(dataset);
+        }
     }
 
     getTutorialNodes(): Array<Node> {
@@ -202,6 +238,7 @@ export class DataService {
     }
 
     parseAesthetics(data: any): Aesth {
+
         return {
             strength: data.strength || 0,
             charge: data.charge || 0,
