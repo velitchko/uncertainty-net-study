@@ -265,12 +265,14 @@ export class ResultsService {
         SURVEY_JSON.pages.splice(3, 0, tutorial2);
 
         // iterate over this.params.eogNetApproaches
+        let variant = 1;
+
         this.params.taskCodes.forEach((task, i) => {
             if(task === 'tutorial-nl' || task === 'tutorial-rep') return;
+
             // construct question
             const question = {
                 name: `${approach}-${task}`,
-
                 elements: [
                     {
                         type: 'html',
@@ -288,13 +290,16 @@ export class ResultsService {
                                     <li><b>association strength</b>: The <b>weight</b> of the edge between nodes, encoded as stroke width or cell color.</li>
                                 </ul>
                             </p>
+                            <p id="metadata" style="visibility: hidden;">
+                                ${this.params?.dataset}-${variant}-${this.params?.level}-${task}
+                            </p>
                         </div>
                         ` 
                     },
                     {
                         type: this.questionMap.get(approach) as string,
                         description: this.titleMap.get(approach) as string,
-                        title: this.params?.taskDescriptions[i]
+                        title: this.params?.taskDescriptions[i],
                     },
                     {
                         type: 'text',
@@ -302,7 +307,6 @@ export class ResultsService {
                         inputType: this.taskInputType.get(task) as string,
                         isRequired: true,
                         title: 'Answer',
-                        name: `${approach}-${task}-answer`
                     }
                 ]
             };
@@ -329,6 +333,8 @@ export class ResultsService {
 
             SURVEY_JSON.pages.push(question);
             SURVEY_JSON.pages.push(feedback);
+
+            variant++;
         });
 
         // Move the feedback page to the end
