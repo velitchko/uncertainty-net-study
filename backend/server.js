@@ -10,8 +10,8 @@ const taskCodes = [ 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8' ];
 const taskDescriptions = new Map([
     ['t1', 'Which node has the largest attribute? If multiple answers are possible, select only one.'],
     ['t2', 'Which node has the smallest attribute? If multiple answers are possible, select only one.'],
-    ['t3', 'Which node’s attribute is the least certain? If multiple answers are possible, select only one.'],
-    ['t4', 'Which node’s attribute is the most certain? If multiple answers are possible, select only one.'],
+    ['t3', 'Which node\'s attribute is the least certain? If multiple answers are possible, select only one.'],
+    ['t4', 'Which node\'s attribute is the most certain? If multiple answers are possible, select only one.'],
     ['t5', 'Estimate the number of nodes in the graph.'],
     ['t6', 'Estimate the number of edges in the graph.'],
     ['t7', 'Which node has the largest number of neighbors? If multiple answers are possible, select only one.'],
