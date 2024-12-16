@@ -25,7 +25,11 @@ export const SURVEY_JSON = {
 
                     <div style="padding-top: 2em; padding-bottom: 2em; text-align: justify">
                         <p>
-                            However, such <b>ego networks can be represented in many different ways</b>, each with its own advantages and drawbacks. In this study, you will solve six tasks for a particular ego network representation. You will receive more detailed instructions and explanations regarding each representation and task once you start the study.
+                            In this study, however, we are particularly interested in how to visualize <b>attributes</b> attached to these nodes. In the context of a social network, for example, such attributes could describe a person's height, weight, political affiliation, etc. As these attributes can be <b>uncertain</b>, care must be taken in visualizing such attributes and their attached uncertainty in a meaningful way.
+                        </p>
+
+                        <p>
+                            Here, this uncertainty can be visually represented in different ways. In this study, you will be shown one of multiple such visual encodings and tasked with answering multiple questions relating to the presented network's topology as well as its attributes. The study aims to evaluate the readability of the visual representation of the network and its attributes.
                         </p>
                     </div>
 
@@ -46,11 +50,10 @@ export const SURVEY_JSON = {
                     <hr/>
 
                     <div style="padding-top: 2em; padding-bottom: 2em; text-align: justify">
-                        <p>Overall, we estimate the study to require 20-30 minutes of your time. Your participation is voluntary, and you can decide to cancel your participation at any time. However, you will not receive any compensation if you do not finish the study, following Prolific's cancellation policy. In order to participate in this study, please ensure that:</p>
+                        <p>Overall, we estimate the study to require 15-20 minutes of your time. Your participation is voluntary, and you can decide to cancel your participation at any time. However, you will not receive any compensation if you do not finish the study, following Prolific's cancellation policy. In order to participate in this study, please ensure that:</p>
                     <ul style="list-style-type: disc; padding-left: 2rem;">
-                        <li>You are not color-blind or suffer from any other vision impairments</li>
+                        <li>You are not color-blind or suffer from any other (uncorrected) vision impairments</li>
                         <li>You are using a large desktop or laptop monitor, i.e. not a smartphone or tablet.</li>
-                        <li>You have a mouse or trackpad with a scroll wheel or scroll functionality, respectively.</li>
                         <li>You do not navigate forth and back using the browser controls or refresh the page.</li>
                     <ul>
                     </div>
@@ -110,12 +113,10 @@ export const SURVEY_JSON = {
                     choices: ["Female", "Male", "Other", "Prefer not to specify"]
                 },
                 {
-                    type: "radiogroup",
+                    type: "text", 
                     name: "age",
                     title: "Age",
-                    isRequired: true,
-                    colCount: 3,
-                    choices: ["18-20", "21-25", "26-30", "31-35", "36-40", "41-45", "46-50", "50+"]
+                    isRequired: true
                 },
                 {
                     type: "radiogroup",
