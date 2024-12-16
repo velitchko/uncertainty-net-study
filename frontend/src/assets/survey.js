@@ -142,8 +142,8 @@ export const SURVEY_JSON = {
             elements: [
                 {
                     type: "rating",
-                    name: "ego-rep-learn",
-                    title: "I found the ego network's visual representation easy to learn.",  
+                    name: "rep-learn",
+                    title: "I found the uncertainty visualization easy to learn.",  
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Neutral, 4 - Agree, 5 - Strongly Agree.",
                     rateType: "satisfaction-numeric",
                     scaleColorMode: "colored",
@@ -157,8 +157,8 @@ export const SURVEY_JSON = {
                 },
                 {
                     type: "rating",
-                    name: "ego-rep-use",
-                    title: "I found the ego network's visual representation easy to use.",
+                    name: "rep-use",
+                    title: "I found the uncertainty visualization easy to use.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Neutral, 4 - Agree, 5 - Strongly Agree.",
                     rateType: "satisfaction-numeric",
                     scaleColorMode: "colored",
@@ -172,8 +172,8 @@ export const SURVEY_JSON = {
                 },
                 {
                     type: "rating",
-                    name: "ego-rep-aesth",
-                    title: "I found the ego network's visual representation aesthetically pleasing.",
+                    name: "rep-aesth",
+                    title: "I found the uncertainty visualization aesthetically pleasing.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Neutral, 4 - Agree, 5 - Strongly Agree.",
                     rateType: "satisfaction-numeric",
                     scaleColorMode: "colored",
@@ -187,8 +187,8 @@ export const SURVEY_JSON = {
                 },
                 {
                     type: "rating",
-                    name: "ego-rep-acc",
-                    title: "I found the ego network's visual representation allowed me to answer questions accurately.",
+                    name: "rep-quick",
+                    title: "I found the uncertainty visualization allowed me to answer questions quickly.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Neutral, 4 - Agree, 5 - Strongly Agree.",
                     rateType: "satisfaction-numeric",
                     scaleColorMode: "colored",
@@ -202,8 +202,8 @@ export const SURVEY_JSON = {
                 },
                 {
                     type: "rating",
-                    name: "ego-rep-quick",
-                    title: "I found the ego networks visual representation allowed me to answer questions quickly.",
+                    name: "rep-acc",
+                    title: "I found the uncertainty visualization allowed me to answer questions accurately.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Neutral, 4 - Agree, 5 - Strongly Agree.",
                     rateType: "satisfaction-numeric",
                     scaleColorMode: "colored",
@@ -218,7 +218,7 @@ export const SURVEY_JSON = {
                 {
                     name: "ego-rep-comments",
                     type: "comment",
-                    title: "What are your final thoughts regarding this ego network's visual representation? How did it assist or hinder you in solving the tasks?", 
+                    title: "What are your final thoughts regarding this uncertainty visualization approach? Please list one negative and one positive point.", 
                     placeHolder: "Please enter your personal comments:",
                     isRequired: true,
                 }            
