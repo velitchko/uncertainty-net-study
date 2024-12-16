@@ -16,11 +16,10 @@ body {
     font-weight: bold !important;
 }
 
-.sd-html > div > * {
-    font-size: 1.25rem !important;
+.sd-body {
+    padding: 0 !important;
 }
 
-#dthree {
-    margin: auto;
-    width: 80vw;
+.sd-html > div > * {
+    font-size: 1.25rem !important;
 }
