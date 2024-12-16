@@ -91,38 +91,42 @@ export class WiggleComponent implements AfterViewInit {
     }
 
     private random(): void {
-        this.simulation.stop();
-        this.simulation.nodes().forEach((node: NodeExt) => {
-            node.x += this.randomMovement(node.variance);
-            node.y += this.randomMovement(node.variance);
+        const nodes = this.nodes.data() as NodeExt[];
+
+        nodes.forEach((node: NodeExt) => {
+            if (node.originalPosition === undefined) {
+                node.originalPosition = [node.x + this.aesthetics.xoffset, node.y + this.aesthetics.yoffset];
+            } 
+            node.x = node.originalPosition[0] + this.randomMovement(node.variance);
+            node.y = node.originalPosition[1] + this.randomMovement(node.variance);
         });
 
         this.nodes
             .transition()
-            .duration(1000)
+            // .duration(1000)
             .attr('cx', (d: NodeExt) => d.x)
             .attr('cy', (d: NodeExt) => d.y);
 
         this.labels
             .transition()
-            .duration(1000)
+            // .duration(1000)
             .attr('x', (d: NodeExt) => d.x)
             .attr('y', (d: NodeExt) => d.y);
 
         this.buffer
             .transition()
-            .duration(1000)
+            // .duration(1000)
             .attr('cx', (d: NodeExt) => d.x)
             .attr('cy', (d: NodeExt) => d.y);
 
         this.edges
             .transition()
-            .duration(1000)
+            // .duration(1000)
             .attr('x1', (d: EdgeExt) => d.source.x)
             .attr('y1', (d: EdgeExt) => d.source.y)
             .attr('x2', (d: EdgeExt) => d.target.x)
-            .attr('y2', (d: EdgeExt) => d.target.y)
-            .on('end', () => { this.simulation.restart(); });
+            .attr('y2', (d: EdgeExt) => d.target.y);
+            // .on('end', () => { this.simulation.restart(); });
     }
 
     drawGraph(graph: { nodes: NodeExt[], edges: EdgeExt[] }): void {
