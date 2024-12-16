@@ -19,15 +19,7 @@ const taskDescriptions = new Map([
 ]);
 
 // TODO: Increase to 20 later
-const encodingThresholdMap = new Map([
-    ['fuzzy', 5],
-    ['saturate', 5],
-    ['enclose', 5],
-    ['wiggle', 5]
-]);
-
-// create a tracker for every user that visits the site
-let userTracker = new Map();
+const threshold = 1;
 
 app.use(express.json());
 app.use(cors());
@@ -61,7 +53,7 @@ app.get('/params', (req, res) => {
     for (const encoding of uncertaintyEncApproaches) {
         for (const dataset of ['raccoons', 'ants']) {
             for (const level of ['low', 'high']) {
-                if (userAssignments[encoding][dataset][level] < 10) {
+                if (userAssignments[encoding][dataset][level] < threshold) {
                     assignedEncoding = encoding;
                     assignedDataset = dataset;
                     assignedLevel = level;
