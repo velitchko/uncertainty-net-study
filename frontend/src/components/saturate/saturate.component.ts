@@ -34,22 +34,22 @@ export class SaturateComponent implements AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        console.log('FuzzyComponent: ngOnInit');
+        console.log('SaturateComponent: ngOnInit');
         const meta = d3.select('#metadata').text().trim();
         const dataset = meta.split('-')[0];
         const variant = meta.split('-')[1];
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        console.log('FuzzyComponent: ngAfterViewInit: dataset', dataset);
-        console.log('FuzzyComponent: ngAfterViewInit: variant', variant);
-        console.log('FuzzyComponent: ngAfterViewInit: level', level);
-        console.log('FuzzyComponent: ngAfterViewInit: task', task);
+        console.log('SaturateComponent: ngAfterViewInit: dataset', dataset);
+        console.log('SaturateComponent: ngAfterViewInit: variant', variant);
+        console.log('SaturateComponent: ngAfterViewInit: level', level);
+        console.log('SaturateComponent: ngAfterViewInit: task', task);
 
-        const overrideLevel = task === 't1' || task === 't4' ? '0.0' : task === 't2' || task === 't3' ? '1.1' : 
-            (Math.random() < 0.5 ? '1.0' : Math.random() < 0.5 ? '0.1' : Math.random() < 0.5 ? '1.1' : '0.0')
+        const finalLevel = this.dataService.getFinalLevel(task, level);
+        const fileName = `${dataset}_${variant}.${finalLevel}.json`;
 
-        const fileName = `${dataset}_${variant}.${overrideLevel}.json`;
+        console.log('SaturateComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 

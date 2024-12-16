@@ -47,10 +47,10 @@ export class FuzzyComponent implements AfterViewInit {
         console.log('FuzzyComponent: ngAfterViewInit: level', level);
         console.log('FuzzyComponent: ngAfterViewInit: task', task);
 
-        const overrideLevel = task === 't1' || task === 't4' ? '0.0' : task === 't2' || task === 't3' ? '1.1' : 
-            (Math.random() < 0.5 ? '1.0' : Math.random() < 0.5 ? '0.1' : Math.random() < 0.5 ? '1.1' : '0.0')
+        const finalLevel = this.dataService.getFinalLevel(task, level);
+        const fileName = `${dataset}_${variant}.${finalLevel}.json`;
 
-        const fileName = `${dataset}_${variant}.${overrideLevel}.json`;
+        console.log('FuzzyComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 
