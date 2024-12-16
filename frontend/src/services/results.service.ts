@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SURVEY_JSON } from '../assets/survey.js';
+import { DataService } from './data.service';
 import { CONFIG } from '../assets/config';
 
 type QualitativeAnswer = {
@@ -26,14 +27,6 @@ type AgreementAnswer = {
     confirm: string,
     agreement: string
 };
-
-// export type Params = {
-//     user: string,
-//     egoNetApproaches: Array<string>,
-//     taskCode: string,
-//     taskDescription: string
-// };
-
 
 export type Params = {
     user: string,
@@ -94,78 +87,54 @@ export class ResultsService {
         ['t8', 'text'],
     ]);
 
+    protected tutorialRepresenationTitle: Map<string, string> = new Map([
+        ['fuzzy', 'Tutorial 2: Fuzziness'],
+        ['wiggle', 'Tutorial 2: Wiggliness'],
+        ['saturate', 'Tutorial 2: Saturation'],
+        ['enclose', 'Tutorial 2: Enclosure']
+    ]);
+
+
     protected tutorialRepresenation: Map<string, string> = new Map([
         ['fuzzy', `
-            <p style="padding-bottom: .5em;">
-            Adjacency matrix representations of ego networks display the connectivity between entities tabularly. <b>Each entity, i.e. node, is represented twice</b>, once as a labeled row, and once as a labeled column. If a connection, i.e. an edge, exists between two nodes the corresponding matrix cell is “filled”. This means that <b>each edge is represented twice as well</b>. For example, if an edge connects nodes 3 and 5, then the matrix cells at locations (3,5) and (5,3) are filled in. Don’t count these twice though - this is still just one edge. 
-            </p>
-            <p style="padding-bottom: .5em;">
-            The <b>ego of a particular ego network will always be represented at the top left</b> of the matrix table (in the example below node #34). Alters are arranged in colored blocks depending on their proximity to the ego. That is to say that, after the ego, the first colored block consists of 1-alters, the second of 2-alters, and so forth. The nodes of each block are displayed along the columns and rows and are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink.
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>Intra-alter edges connect two nodes of the same alter level, i.e. connections within a block</b>, and (like the alters themselves) are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink. <b>Inter-alter edges connect two nodes of different alter levels, i.e. connections between colored blocks</b>, and are colored in black. <b>The darker a cell is colored, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
-            </p>
+            <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
+            <br />
+            <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty in each node's attribute has been mapped to the node's fuzziness: the blurrier the border of the node, the less certain we are in its attribute's value. Conversely, the crisper its border, the more certain we are in its attribute's value. In the given example, node A has the crispest outline of all nodes, so we are the most certain of its attribute's value. On the other hand, node B has the most blurry border, so we are the least certain of its attribute's value.</p>
+            <br />
+            <img src="assets/images/fuzziness.png" style="width: 100%; padding-bottom: 2em;"/>
         `],
         ['wiggle', `
-            <p style="padding-bottom: .5em;">
-            The node-link diagram is the most common form of network representation. In it, each entity, i.e. <b>node, is represented as a circle</b>, whose label is positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line between them. The darker the line, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            The ego, in the example below node #34, of a particular network is colored black. Alters are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink.
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>Intra-alter edges connect two nodes of the same alter level</b>, and (like the alters themselves) are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink. <b>Inter-alter edges connect two nodes of different alter levels</b> and are colored in black. <b>The thicker the line, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
-            </p>
+            <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
+            <br />
+            <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty is each node's attribute has been mapped to the node's wiggliness: the more a node wiggles, i.e. the more it moves around, the less certain we are in its attribute's value. Conversely, the less it wiggles, i.e. the less it moves around, the more certain we are in its node's attribute's value. Thus, in this particular example, node B is the most uncertain as it wiggles the most. Conversely, node A is the most certain as it hardly wiggles at all.</p>
+            <br />
+            <img src="assets/images/wiggliness.gif" style="width: 100%; padding-bottom: 2em;"/>
         `],
         ['saturate', `
-            <p style="padding-bottom: .5em;">
-            In a layered node-link diagram, each entity, i.e. <b>node, is represented as a circle</b> with its label positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line</b> between them. <b>The darker the line, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            The network’s ego, in the example below node #34, is positioned at the top of the diagram, colored in black. <b>Each alter-level has its nodes distributed along the corresponding horizontal line</b>: the ego along the first line, 1-alters along the second, 2-alters along the third, and so on.
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>Intra-alter edges connect two nodes of the same alter level, i.e. connect nodes within an alter-line</b>, and (like the alters themselves) are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink. <b>Inter-alter edges connect two nodes of different alter levels, i.e. connect nodes between alter-lines</b> and are colored in black. <b>The thicker the line, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
-            </p>
+            <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
+            <br />
+            <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, this uncertainty has been mapped to each node's saturation: the more saturated a node, the more certain we are in its attribute's value. Conversely, the less saturated a node, the less certain we are in its attribute's value. In the given example, node A is the most saturated node (the most orange), and, hence, we are the most certain in its attribute's value. Conversely, node B is the least saturated (the most grey), and hence, we are the least certain of its attribute's value.</p>
+            <br />
+            <img src="assets/images/saturation.png" style="width: 100%; padding-bottom: 2em;"/>
         `],
         ['enclose', `
-            <p style="padding-bottom: .5em;">
-            In a radial node-link diagram, each entity, i.e. <b>node, is represented as a circle</b> with its label positioned at the circle’s center. A relationship, i.e. an <b>edge, connecting two particular nodes is drawn as a straight line between them</b>. The darker the line, the stronger the edge connecting two nodes is.
-            </p>
-            <p style="padding-bottom: .5em;">
-            The network’s ego, in the example below node #34, is positioned at the center of the diagram, colored in black. <b>Alters are placed along concentric circles around the ego</b>, i.e. 1-alters are placed along the first ring, 2-alters along the second, and so on. Alters are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink.
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>Intra-alter edges connect two nodes of the same alter level, i.e. nodes on the same ring</b>, and (like the alters themselves) are color-coded: 1-alters in green, 2-alters in orange, 3-alters in blue, and 4-alters in pink. <b>Inter-alter edges connect two nodes of different alter levels, i.e. nodes on different rings</b>, and are colored in black. <b>The thicker the line, the stronger the edge connecting two nodes is.</b>
-            </p>
-            <p style="padding-bottom: .5em;">
-            <b>The visualization is interactive</b>. You can click and drag in order to pan, and you can zoom in and out using your scroll wheel. By hovering over a node you can see its connections and neighbors.
-            </p>
+            <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
+            <br />
+            <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty in each node's attribute has been mapped to the node's enclosure: the thicker the border of a node, the less certain we are in its attribute's value. Conversely, the thinner a node's border, the more certain we are in its attribute's value. In this example, node A has the thinnest border, hence we are the most certain in its attribute's value. Conversely, node B has the thickest border, so we are the least certain of its attribute's value.</p>
+            <br />
+            <img src="assets/images/enclosure.png" style="width: 100%; padding-bottom: 2em;"/>
         `]
     ]);
 
-    protected captionRepresenation: Map<string, string> = new Map([
-        ['fuzzy', 'Caption: The same network is represented once as a node-link diagram (left) and adjacency matrix (right). Note how the edges in the node-link diagram, i.e. the lines, become filled matrix cells in the adjacency matrix representation. Also, note how both nodes and subsequently edges are represented twice.'],
-        ['wiggle', 'Caption: A node-link diagram representation of an ego network. Note the ego\'s black color, and the various alter levels\' colors'],
-        ['saturate', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the layered lines.'],
-        ['enclose', 'Caption: The same network represented once as a node-link diagram (left) and radial node-link diagram (right). Note the placement of the nodes along the concentric circles.']
-    ]);
-
     private surveySetup: boolean = false;
+    private dataSets: Array<string>;
 
     private results: Array<Result> = new Array<Result>();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private dataService: DataService) {
         this.params = null;
+
+        this.dataSets = this.dataService.getDatasetNames();
     }
 
     setUserParams(params: Params): void {
@@ -207,62 +176,42 @@ export class ResultsService {
         const approach = this.params.encoding;
 
         // depending on approach plug in tutorial page
-        const tutorial1 = {
+        const tutorialNL = {
             name: 'tutorial-nl',
             elements: [
                 {
                     type: 'html',
                     html: `
                     <div>
-                        <h2>Node-Link Diagram Tutorial</h2>
+                        <h2>Tutorial 1: What is a Node-Link Diagram?</h2>
                         <p style="padding-bottom:2em;">
-                            A network is a representation of connectivity between entities. Each entity is called a <b>node</b>. Connections between nodes are called <b>edges.</b> 
-                            In this study, we are particularly interested in studying so-called <b>ego networks</b>. An ego network represents connections relative to a particular focal node, the so-called <b>ego</b>. In other words: instead of visualizing an entire network, we only visualize nodes important to the ego, i.e. its neighbors, its neighbors' neighbors, etc.. 
-                            The neighbors of the ego are called <b>1-alters</b>, the neighbors of the neighbors 2-alters, and so on.
+                            A network consists of two types of elements: nodes and edges. Nodes represent entities, for example, people in a social network, and are presented as labeled circles. The labels are the identifier, i.e. ID, of each node. These nodes can be connected by edges, in which case nodes are said to be “adjacent” to or “neighbors” of each other. These edges represent relationships between nodes, for example, friendships in a social network. If two nodes A and B are connected by an edge, that edge can be represented as either (A, B) or (B, A). In the simple example below, five nodes (A, B, C, D, and E) are presented. In this example, the following seven edges exist: (A, B), (A, C), (A, D), (A, E), (B, D), (C, E), and (D, E). 
                         </p>
-                        
-                        <h2>${this.titleMap.get(approach)}</h2>
-                        <p>${this.tutorialRepresenation.get(approach)}</p>
+
+                        <img src="assets/images/node_link_diagram.png" style="width: 100%; padding-bottom: 2em;"/>
                     </div>`
-                },
-                {
-                    type: this.questionMap.get(approach) as string,
-                    title: this.titleMap.get(approach) as string,
-                    description: ''
                 }
             ]
         };
 
-        const tutorial2 = {
+        const tutorialREP = {
             name: 'tutorial-rep',
             elements: [
                 {
                     type: 'html',
                     html: `
                     <div>
-                        <h2>Uncertainty Representation Tutorial</h2>
-                        <p style="padding-bottom:2em;">
-                            A network is a representation of connectivity between entities. Each entity is called a <b>node</b>. Connections between nodes are called <b>edges.</b> 
-                            In this study, we are particularly interested in studying so-called <b>ego networks</b>. An ego network represents connections relative to a particular focal node, the so-called <b>ego</b>. In other words: instead of visualizing an entire network, we only visualize nodes important to the ego, i.e. its neighbors, its neighbors' neighbors, etc.. 
-                            The neighbors of the ego are called <b>1-alters</b>, the neighbors of the neighbors 2-alters, and so on.
-                        </p>
-                        
-                        <h2>${this.titleMap.get(approach)}</h2>
+                        <h2>${this.tutorialRepresenationTitle.get(approach)}</h2>
                         <p>${this.tutorialRepresenation.get(approach)}</p>
                     </div>`
-                },
-                {
-                    type: this.questionMap.get(approach) as string,
-                    title: this.titleMap.get(approach) as string,
-                    description: ''
                 }
             ]
         };
 
 
         // put tutorial page after intro page
-        SURVEY_JSON.pages.splice(2, 0, tutorial1);
-        SURVEY_JSON.pages.splice(3, 0, tutorial2);
+        SURVEY_JSON.pages.splice(2, 0, tutorialNL);
+        SURVEY_JSON.pages.splice(3, 0, tutorialREP);
 
         // iterate over this.params.eogNetApproaches
         let variant = 1;
@@ -277,23 +226,9 @@ export class ResultsService {
                     {
                         type: 'html',
                         html: `
-                        <div style="font-size: 1.5rem;">
-                            <h2>Definitions</h2>
-                            <p style="padding-bottom: .5em;">
-                                <ul style="list-style-type: disc; padding-left: 2rem;">
-                                    <li><b>Ego</b>: The focal node, <span style="font-size: 1.5rem; font-weight: bold; color:#000000;">colored black</span>, of the network.</li>
-                                    <li><b>1-alters</b>: The neighbors of the ego, <span style="font-size: 1.5rem; font-weight: bold; color:#66c2a5;">colored green</span>.</li>
-                                    <li><b>2-alters</b>: The neighbors of the neighbors of the ego, <span style="font-size: 1.5rem; font-weight: bold; color:#fc8d62;">colored orange</span>.</li>
-                                    <li><b>3-alters</b>: The neighbors of the neighbors of the neighbors of the ego, <span style="font-size: 1.5rem; font-weight: bold; color:#8da0cb;">colored blue</span>.</li>
-                                    <li><b>inter-alter edges</b>: Connections between nodes of different alter levels, <span style="font-size: 1.5rem; font-weight: bold; color:#000000;">colored black</span>.</li>
-                                    <li><b>intra-alter edges</b>: Connections between nodes of the same alter level, colored according to alter level.</li>
-                                    <li><b>association strength</b>: The <b>weight</b> of the edge between nodes, encoded as stroke width or cell color.</li>
-                                </ul>
-                            </p>
                             <p id="metadata" style="visibility: hidden;">
                                 ${this.params?.dataset}-${variant}-${this.params?.level}-${task}
                             </p>
-                        </div>
                         ` 
                     },
                     {
@@ -303,7 +238,7 @@ export class ResultsService {
                     },
                     {
                         type: 'text',
-                        placeholder: this.taskInputType.get(task) === 'number' ? 'Enter your answer (number)' : 'Enter your answer here (comma separated)',
+                        placeholder: this.taskInputType.get(task) === 'number' ? 'Enter your answer (number)' : 'Enter your answer here',
                         inputType: this.taskInputType.get(task) as string,
                         isRequired: true,
                         title: 'Answer',
@@ -324,8 +259,8 @@ export class ResultsService {
                     {
                         type: 'comment', 
                         name: `${approach}-${task}-feedback`,
-                        isRequired: true,
-                        title: 'How did this ego network representation assist or hinder you in solving this particular task?',
+                        isRequired: false,
+                        title: '(Optional) How did this uncertainty visualization assist or hinder you in solving this particular task?',
                         placeHolder: 'Enter your feedback here'
                     }
                 ]
