@@ -226,7 +226,7 @@ export class ResultsService {
                     {
                         type: 'html',
                         html: `
-                            <p id="metadata" style="visibility: hidden;">
+                            <p id="metadata" style="display: none;">
                                 ${this.params?.dataset}-${variant}-${this.params?.level}-${task}
                             </p>
                         ` 
