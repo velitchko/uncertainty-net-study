@@ -34,22 +34,14 @@ export class SaturateComponent implements AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        console.log('SaturateComponent: ngOnInit');
         const meta = d3.select('#metadata').text().trim();
         const dataset = meta.split('-')[0];
         const variant = meta.split('-')[1];
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        console.log('SaturateComponent: ngAfterViewInit: dataset', dataset);
-        console.log('SaturateComponent: ngAfterViewInit: variant', variant);
-        console.log('SaturateComponent: ngAfterViewInit: level', level);
-        console.log('SaturateComponent: ngAfterViewInit: task', task);
-
         const finalLevel = this.dataService.getFinalLevel(task, level);
         const fileName = `${dataset}_${variant}.${finalLevel}.json`;
-
-        console.log('SaturateComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 

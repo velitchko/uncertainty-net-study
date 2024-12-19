@@ -148,9 +148,6 @@ export class DataService {
     public getFinalLevel(task: string, level: string): string {
         let finalLevel = '';
 
-        console.log('getFinalLevel: task', task);
-        console.log('getFinalLevel: level', level);
-
         const uncertaintyLevel = Math.random() < 0.5 ? '0' : '1';
         const attributeLevel = Math.random() < 0.5 ? '0' : '1';
 
@@ -171,8 +168,6 @@ export class DataService {
                 finalLevel = `${uncertaintyLevel}.${attributeLevel}`; 
                 break;
         }
-
-        console.log('getFinalLevel: finalLevel', finalLevel);
 
         return finalLevel;
     }

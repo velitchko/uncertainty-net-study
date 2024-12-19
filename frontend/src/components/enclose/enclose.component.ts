@@ -33,22 +33,14 @@ export class EncloseComponent implements AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        console.log('EncloseComponent: ngOnInit');
         const meta = d3.select('#metadata').text().trim();
         const dataset = meta.split('-')[0];
         const variant = meta.split('-')[1];
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        console.log('EncloseComponent: ngAfterViewInit: dataset', dataset);
-        console.log('EncloseComponent: ngAfterViewInit: variant', variant);
-        console.log('EncloseComponent: ngAfterViewInit: level', level);
-        console.log('EncloseComponent: ngAfterViewInit: task', task);
-
         const finalLevel = this.dataService.getFinalLevel(task, level);
         const fileName = `${dataset}_${variant}.${finalLevel}.json`;
-
-        console.log('EncloseComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 

@@ -35,22 +35,14 @@ export class FuzzyComponent implements AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        console.log('FuzzyComponent: ngOnInit');
         const meta = d3.select('#metadata').text().trim();
         const dataset = meta.split('-')[0];
         const variant = meta.split('-')[1];
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        console.log('FuzzyComponent: ngAfterViewInit: dataset', dataset);
-        console.log('FuzzyComponent: ngAfterViewInit: variant', variant);
-        console.log('FuzzyComponent: ngAfterViewInit: level', level);
-        console.log('FuzzyComponent: ngAfterViewInit: task', task);
-
         const finalLevel = this.dataService.getFinalLevel(task, level);
         const fileName = `${dataset}_${variant}.${finalLevel}.json`;
-
-        console.log('FuzzyComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 

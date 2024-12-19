@@ -34,23 +34,15 @@ export class WiggleComponent implements AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        console.log('WiggleComponent: ngOnInit');
         const meta = d3.select('#metadata').text().trim();
         const dataset = meta.split('-')[0];
         const variant = meta.split('-')[1];
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        console.log('WiggleComponent: ngAfterViewInit: dataset', dataset);
-        console.log('WiggleComponent: ngAfterViewInit: variant', variant);
-        console.log('WiggleComponent: ngAfterViewInit: level', level);
-        console.log('WiggleComponent: ngAfterViewInit: task', task);
-
         const finalLevel = this.dataService.getFinalLevel(task, level);
 
         const fileName = `${dataset}_${variant}.${finalLevel}.json`;
-
-        console.log('WiggleComponent: ngAfterViewInit: fileName', fileName);
 
         const graph = await this.dataService.loadFilename(fileName);
 
