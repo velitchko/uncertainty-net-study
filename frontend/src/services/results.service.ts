@@ -7,12 +7,7 @@ import { DataService } from './data.service';
 import { CONFIG } from '../assets/config';
 
 type QualitativeAnswer = {
-    learn: number,
-    use: number,
-    aesth: number,
-    acc: number,
-    quick: number,
-    comments: string
+    
 };
 
 type DemographicAnswer = {
@@ -285,6 +280,12 @@ export class ResultsService {
         if (feedbackPageIndex !== -1) {
             const feedbackPage = SURVEY_JSON.pages.splice(feedbackPageIndex, 1)[0];
             SURVEY_JSON.pages.push(feedbackPage);
+        }
+
+        const iceTPageIndex = SURVEY_JSON.pages.findIndex(page => page.name === 'icet');
+        if (iceTPageIndex !== -1) {
+            const iceTPage = SURVEY_JSON.pages.splice(iceTPageIndex, 1)[0];
+            SURVEY_JSON.pages.push(iceTPage);
         }
 
         console.log(SURVEY_JSON);
