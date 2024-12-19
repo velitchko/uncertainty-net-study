@@ -164,6 +164,7 @@ export class SurveyComponent {
                     level: '',
                     answer: qualitativeFeedback
                 });
+                return;
             }
             
             // update end time and record result

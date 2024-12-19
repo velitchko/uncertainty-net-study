@@ -239,6 +239,7 @@ export class ResultsService {
                         type: this.questionMap.get(approach) as string,
                         description: this.titleMap.get(approach) as string,
                         title: this.params?.taskDescriptions[i],
+                        name: `${approach}-${task}`
                     },
                     {
                         type: 'text',
@@ -246,6 +247,7 @@ export class ResultsService {
                         inputType: this.taskInputType.get(task) as string,
                         isRequired: true,
                         title: 'Answer',
+                        name: `${approach}-${task}-answer`
                     }
                 ]
             };
@@ -277,7 +279,7 @@ export class ResultsService {
         });
 
         // Move the feedback page to the end
-        const feedbackPageIndex = SURVEY_JSON.pages.findIndex(page => page.name === 'feedback');
+        const feedbackPageIndex = SURVEY_JSON.pages.findIndex(page => page.name === 'qualitative-feedback');
         if (feedbackPageIndex !== -1) {
             const feedbackPage = SURVEY_JSON.pages.splice(feedbackPageIndex, 1)[0];
             SURVEY_JSON.pages.push(feedbackPage);

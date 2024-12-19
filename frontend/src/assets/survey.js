@@ -137,7 +137,7 @@ export const SURVEY_JSON = {
             ]
         },
         {
-            name: "feedback",
+            name: "qualitative-feedback",
             title: "Feedback",
             elements: [
                 {
