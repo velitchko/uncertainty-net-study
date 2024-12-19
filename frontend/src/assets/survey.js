@@ -231,7 +231,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-1-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization exposes individual nodes and their attributes.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -243,7 +243,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-1-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization facilitates perceiving relationships in the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -255,7 +255,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-1-3",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization promotes exploring relationships.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -267,7 +267,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-2-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization helps generate data-driven questions.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -279,7 +279,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-2-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization helps identify unusual or unexpected, yet valid, data characteristics or values.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -291,7 +291,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-3-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization provides useful interactive capabilities to help investigate the data in multiple ways.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -303,7 +303,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-3-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization shows multiple perspectives about the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -315,7 +315,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "insight-3-3",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization uses an effective representation of the data that shows related and partially related nodes.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -327,7 +327,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "time-1-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization provides a meaningful spatial organization of the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -339,7 +339,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "time-1-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization shows key characteristics of the data at a glance.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -351,7 +351,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "time-2-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The interface supports using different attributes of the data to reorganize the visualization's appearance.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -363,7 +363,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "time-2-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization supports smooth transitions between different levels of detail in viewing the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -375,7 +375,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "time-2-3",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization avoids complex commands and textual queries by providing direct interaction with the representation.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -387,7 +387,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "essence-1-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization provides a comprehensive and accessible overview of the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -399,7 +399,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "essence-1-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization presents the data by providing a meaningful visual schema.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -411,7 +411,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "essence-2-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization facilitates generalizations and extrapolations of patterns and conclusions.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -423,7 +423,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "essence-2-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization helps understand how variables relate in order to accomplish different analytic tasks.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -435,7 +435,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "confidence-1-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization uses meaningful and accurate visual encodings to represent the data.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -447,7 +447,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "confidence-1-2",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization avoids using misleading representations.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -459,7 +459,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "confidence-2-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "The visualization promotes understanding of data domain characteristics beyond the individual nodes and attributes.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
@@ -471,7 +471,7 @@ export const SURVEY_JSON = {
                 {
                     type: "rating",
                     name: "confidence-3-1",
-                    title: "I found the network topology easy to understand.",
+                    title: "If there were data issues like unexpected, duplicate, missing, or invalid data, the visualization would highlight those issues.",
                     description: "Numeric rating scale. Where 1 - Strongly Disagree, 2 - Disagree, 3 - Somewhat Disagree, 4 - Neutral, 5 - Somewhat Agree, 6 - Agree, 7 - Strongly Agree.",
                     isRequired: true,
                     rateType: "satisfaction-numeric",
