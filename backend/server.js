@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const app = express();
 const uuid = require('uuid');
 const cors = require('cors');
@@ -42,22 +43,28 @@ app.get('/params', (req, res) => {
         enclose: { raccoons: { low: 0, high: 0 }, ants: { low: 0, high: 0 } },
         wiggle: { raccoons: { low: 0, high: 0 }, ants: { low: 0, high: 0 } }
     };
-
+    
     subFiles.forEach(file => {
-        const logData = JSON.parse(fs.readFileSync(`${subsDir}/${file}`));
-        userAssignments[logData.encoding][logData.dataset][logData.level]++;
+        const params = file.split('#')[0];
+        const [encoding, dataset, level] = params.split('_');
+        userAssignments[encoding][dataset][level]++;
     });
+
+    console.log(userAssignments);
 
     let assignedEncoding, assignedDataset, assignedLevel;
 
     for (const encoding of uncertaintyEncApproaches) {
         for (const dataset of ['raccoons', 'ants']) {
             for (const level of ['low', 'high']) {
+                console.log(encoding, dataset, level, userAssignments[encoding][dataset][level], userAssignments[encoding][dataset][level] < threshold);
                 if (userAssignments[encoding][dataset][level] < threshold) {
                     assignedEncoding = encoding;
                     assignedDataset = dataset;
                     assignedLevel = level;
                     userAssignments[encoding][dataset][level]++;
+
+                    console.log('🔥 Assigned:', assignedEncoding, assignedDataset, assignedLevel);
                     break;
                 }
             }
@@ -84,7 +91,7 @@ app.get('/params', (req, res) => {
 });
 
 app.post('/results', (req, res) => {
-    filePath = `${__dirname}/data/${req.body.params.uncertaintyEncApproach}_${req.body.params.dataset}_${req.body.params.level}-${req.body.params.user}.json`;
+    filePath = `${__dirname}/data/${req.body.params.encoding}_${req.body.params.dataset}_${req.body.params.level}#${req.body.params.userId}.json`;
     console.log('📝 Writing to file...', filePath);
 
     fs.writeFileSync(filePath, JSON.stringify(req.body.results));
