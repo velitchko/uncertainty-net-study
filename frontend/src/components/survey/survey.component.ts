@@ -143,6 +143,28 @@ export class SurveyComponent {
                 this.timer.start = Date.now();
                 return;
             }
+
+            if(options.oldCurrentPage.name === 'qualitative-feedback') {
+                const qualitativeFeedback = {
+                    learn: sender.data['rep-learn'],
+                    use: sender.data['rep-use'],
+                    aesth: sender.data['rep-aesth'],
+                    acc: sender.data['rep-acc'],
+                    quick: sender.data['rep-quick'],
+                    comments: sender.data['rep-comments']
+                };
+    
+                // push to results
+                this.resultsService.pushResult({
+                    index: -99,
+                    time: 0,
+                    task: 'qualitative-feedback',
+                    encoding: '',
+                    dataset: '',
+                    level: '',
+                    answer: qualitativeFeedback
+                });
+            }
             
             // update end time and record result
             this.timer.end = Date.now();
@@ -162,24 +184,41 @@ export class SurveyComponent {
         });
 
         this.survey.onComplete.add((sender) => {
-            const qualitativeFeedback = {
-                learn: sender.data['rep-learn'],
-                use: sender.data['rep-use'],
-                aesth: sender.data['rep-aesth'],
-                acc: sender.data['rep-acc'],
-                quick: sender.data['rep-quick'],
-                comments: sender.data['rep-comments']
+            console.log('🏁 Survey completed');
+
+            const iceTFeedback = {
+                "insight-1-1": sender.data['insight-1-1'],
+                "insight-1-2": sender.data['insight-1-2'],
+                "insight-1-3": sender.data['insight-1-3'],
+                "insight-2-1": sender.data['insight-2-1'],
+                "insight-2-2": sender.data['insight-2-2'],
+                "insight-3-1": sender.data['insight-3-1'],
+                "insight-3-2": sender.data['insight-3-2'],
+                "insight-3-3": sender.data['insight-3-3'],
+                "time-1-1": sender.data['time-1-1'],
+                "time-1-2": sender.data['time-1-2'],
+                "time-2-1": sender.data['time-2-1'],
+                "time-2-2": sender.data['time-2-2'],
+                "time-2-3": sender.data['time-2-3'],
+                "essence-1-1": sender.data['essence-1-1'],
+                "essence-1-2": sender.data['essence-1-2'],
+                "essence-2-1": sender.data['essence-2-1'],
+                "essence-2-2": sender.data['essence-2-2'],
+                "confidence-1-1": sender.data['confidence-1-1'],
+                "confidence-1-2": sender.data['confidence-1-2'],
+                "confidence-2-1": sender.data['confidence-2-1'],
+                "confidence-3-1": sender.data['confidence-3-1']
             };
 
-            // push to results
+               // push to results
             this.resultsService.pushResult({
                 index: -99,
                 time: 0,
-                task: 'qualitative-feedback',
+                task: 'ice-t-feedback',
                 encoding: '',
                 dataset: '',
                 level: '',
-                answer: qualitativeFeedback
+                answer: iceTFeedback
             });
 
             // post to backend
