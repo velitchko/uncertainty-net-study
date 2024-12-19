@@ -216,7 +216,7 @@ export const SURVEY_JSON = {
                     // rateValues: [ 1, 2, 3, 4, 5 ]
                 },
                 {
-                    name: "ego-rep-comments",
+                    name: "rep-comments",
                     type: "comment",
                     title: "What are your final thoughts regarding this uncertainty visualization approach? Please list one negative and one positive point.", 
                     placeHolder: "Please enter your personal comments:",
