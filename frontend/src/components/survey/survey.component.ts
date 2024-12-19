@@ -85,15 +85,19 @@ export class SurveyComponent {
                         familiarity: sender.data['network_knowledge'],
                     }
                 });
+
+                this.timer.start = Date.now();
                 
                 return;
             }
 
-            if(options.oldCurrentPage.name === 'tutorial') {
+            if(options.oldCurrentPage.name === 'tutorial-nl') {
+                this.timer.end = Date.now();
+
                 console.log('📊 Tutorial Node-Link page');
                 this.resultsService.pushResult({
                     index: -99,
-                    time: 0,
+                    time: this.timer.end - this.timer.start,
                     task: 'tutorial-nl',
                     encoding: '',
                     dataset: '',
@@ -106,10 +110,12 @@ export class SurveyComponent {
             }
 
             if(options.oldCurrentPage.name === 'tutorial-rep') {
+                this.timer.end = Date.now();
+
                 console.log('📊 Tutorial Representation page');
                 this.resultsService.pushResult({
                     index: -99,
-                    time: 0,
+                    time: this.timer.end - this.timer.start,
                     task: 'tutorial-rep',
                     encoding: '',
                     dataset: '',
@@ -149,7 +155,7 @@ export class SurveyComponent {
                 task: options.oldCurrentPage.name.split('-')[options.oldCurrentPage.name.split('-').length - 1],
                 // GET SUBSTRING FROM START TO options.newCurrentPage.name.split('-')[options.newCurrentPage.name.split('-').length - 1]
                 encoding: options.oldCurrentPage.name.split('-')[0],
-                dataset: options.oldCurrentPage.name.split('-')[1],
+                dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
                 level: options.oldCurrentPage.name.split('-')[2],
                 answer: sender.data[`${options.oldCurrentPage.name}-answer`]
             });
@@ -157,12 +163,12 @@ export class SurveyComponent {
 
         this.survey.onComplete.add((sender) => {
             const qualitativeFeedback = {
-                learn: sender.data['ego-rep-learn'],
-                use: sender.data['ego-rep-use'],
-                aesth: sender.data['ego-rep-aesth'],
-                acc: sender.data['ego-rep-acc'],
-                quick: sender.data['ego-rep-quick'],
-                comments: sender.data['ego-rep-comments']
+                learn: sender.data['rep-learn'],
+                use: sender.data['rep-use'],
+                aesth: sender.data['rep-aesth'],
+                acc: sender.data['rep-acc'],
+                quick: sender.data['rep-quick'],
+                comments: sender.data['rep-comments']
             };
 
             // push to results
