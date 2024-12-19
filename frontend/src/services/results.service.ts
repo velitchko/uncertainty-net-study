@@ -101,28 +101,36 @@ export class ResultsService {
             <br />
             <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty in each node's attribute has been mapped to the node's fuzziness: the blurrier the border of the node, the less certain we are in its attribute's value. Conversely, the crisper its border, the more certain we are in its attribute's value. In the given example, node A has the crispest outline of all nodes, so we are the most certain of its attribute's value. On the other hand, node B has the most blurry border, so we are the least certain of its attribute's value.</p>
             <br />
-            <img src="assets/images/fuzziness.png" style="width: 100%; padding-bottom: 2em;"/>
+            <div style="margin: auto; width: auto;">
+                <img src="assets/images/fuzziness.png" style="width: 50%; padding-bottom: 2em;"/>
+            </div>
         `],
         ['wiggle', `
             <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
             <br />
             <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty is each node's attribute has been mapped to the node's wiggliness: the more a node wiggles, i.e. the more it moves around, the less certain we are in its attribute's value. Conversely, the less it wiggles, i.e. the less it moves around, the more certain we are in its node's attribute's value. Thus, in this particular example, node B is the most uncertain as it wiggles the most. Conversely, node A is the most certain as it hardly wiggles at all.</p>
             <br />
-            <img src="assets/images/wiggliness.gif" style="width: 100%; padding-bottom: 2em;"/>
+            <div style="margin: auto; width: auto;">
+                <img src="assets/images/wiggliness.gif" style="width: 50%; padding-bottom: 2em;"/>
+            </div>
         `],
         ['saturate', `
             <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
             <br />
             <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, this uncertainty has been mapped to each node's saturation: the more saturated a node, the more certain we are in its attribute's value. Conversely, the less saturated a node, the less certain we are in its attribute's value. In the given example, node A is the most saturated node (the most orange), and, hence, we are the most certain in its attribute's value. Conversely, node B is the least saturated (the most grey), and hence, we are the least certain of its attribute's value.</p>
             <br />
-            <img src="assets/images/saturation.png" style="width: 100%; padding-bottom: 2em;"/>
+            <div style="margin: auto; width: auto;">
+                <img src="assets/images/saturation.png" style="width: 50%; padding-bottom: 2em;"/>
+            </div>
         `],
         ['enclose', `
             <p><b>Attributes:</b> Nodes can also have additional attributes mapped to them. In a social network, for example, in which each node represents a person, each person (node) could have their weight mapped to them. These attributes can be visually represented as well. In the example below, a hypothetical attribute has been mapped to the surface area of each node: the larger a node, the larger its attribute. In this example, node C has the largest attribute, as it is the largest node. Similarly, node F has the smallest attribute, as it is the smallest. Nodes A, B, and D are all equally large, and hence their attributes are also equally large.</p>
             <br />
             <p><b>Uncertainty:</b> However, these attributes can also be uncertain. This uncertainty can be represented in different ways. Here, uncertainty in each node's attribute has been mapped to the node's enclosure: the thicker the border of a node, the less certain we are in its attribute's value. Conversely, the thinner a node's border, the more certain we are in its attribute's value. In this example, node A has the thinnest border, hence we are the most certain in its attribute's value. Conversely, node B has the thickest border, so we are the least certain of its attribute's value.</p>
             <br />
-            <img src="assets/images/enclosure.png" style="width: 100%; padding-bottom: 2em;"/>
+            <div style="margin: auto; width: auto;">
+                <img src="assets/images/enclosure.png" style="width: 50%; padding-bottom: 2em;"/>
+            </div>
         `]
     ]);
 
@@ -188,7 +196,7 @@ export class ResultsService {
                             A network consists of two types of elements: nodes and edges. Nodes represent entities, for example, people in a social network, and are presented as labeled circles. The labels are the identifier, i.e. ID, of each node. These nodes can be connected by edges, in which case nodes are said to be “adjacent” to or “neighbors” of each other. These edges represent relationships between nodes, for example, friendships in a social network. If two nodes A and B are connected by an edge, that edge can be represented as either (A, B) or (B, A). In the simple example below, five nodes (A, B, C, D, and E) are presented. In this example, the following seven edges exist: (A, B), (A, C), (A, D), (A, E), (B, D), (C, E), and (D, E). 
                         </p>
 
-                        <img src="assets/images/node_link_diagram.png" style="width: 100%; padding-bottom: 2em;"/>
+                        <img src="assets/images/node_link_diagram.png" style="width: 50%; padding-bottom: 2em;"/>
                     </div>`
                 }
             ]
