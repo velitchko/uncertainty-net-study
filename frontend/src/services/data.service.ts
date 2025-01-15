@@ -9,7 +9,7 @@ export type Node = {
 };
 export type Edge = { source: string | number, target: string | number };
 
-export type Aesth = { strength: number, charge: number, xoffset: number, yoffset: number };
+export type Aesth = { strength: number, charge: number, distance: number, xoffset: number, yoffset: number };
 
 export type Graph = { nodes: Array<Node>, edges: Array<Edge>, aesthetics: Aesth };
 
@@ -117,7 +117,7 @@ export class DataService {
 
         const nodeResponse = await fetch(`${this.dataDir}${dataset}/${nodeFile}`).then(response => response.json());
         const nodes = this.parseNodes(nodeResponse);
-        this.parsedData.set(fileName, { nodes: nodes.nodes, edges: [], aesthetics: { strength: 0, charge: 0, xoffset: 0, yoffset: 0 } });
+        this.parsedData.set(fileName, { nodes: nodes.nodes, edges: [], aesthetics: { strength: 0, charge: 0, distance: 0, xoffset: 0, yoffset: 0 } });
 
         const edgeResponse = await fetch(`${this.dataDir}${dataset}/${edgeFile}`).then(response => response.json());
 
@@ -142,7 +142,7 @@ export class DataService {
             }
         }
 
-        return this.parsedData.get(fileName) || { nodes: [], edges: [], aesthetics: { strength: 0, charge: 0, xoffset: 0, yoffset: 0 } };
+        return this.parsedData.get(fileName) || { nodes: [], edges: [], aesthetics: { strength: 0, charge: 0, distance: 0, xoffset: 0, yoffset: 0 } };
     }
 
     private loadDataForDataset(dataset: string): void {
@@ -226,7 +226,7 @@ export class DataService {
                 resolve({
                     nodes: this.getDatasetNodes(key) || [],
                     edges: this.getDatasetEdges(key) || [],
-                    aesthetics: this.parsedData.get(key)?.aesthetics || { strength: 0, charge: 0, xoffset: 0, yoffset: 0 }
+                    aesthetics: this.parsedData.get(key)?.aesthetics || { strength: 0, charge: 0, distance: 0, xoffset: 0, yoffset: 0 }
                 });
             } else {
                 reject('No data found for key: ' + key);
@@ -249,8 +249,9 @@ export class DataService {
 
     parseAesthetics(data: any): Aesth {
         return {
-            strength: data.strength || 0,
-            charge: data.charge || 0,
+            strength: data.strength || 0.5,
+            charge: data.charge || -1000,
+            distance: data.distance || 50,
             xoffset: data.xoffset || 0,
             yoffset: data.yoffset || 0
         };
