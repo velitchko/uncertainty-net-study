@@ -40,6 +40,8 @@ export type Result = {
     variant: string,
     dataset: string,
     level: string,
+    uncertainty: number,
+    attribute: number,
     answer: string | number | QualitativeAnswer | DemographicAnswer | AgreementAnswer
 } | {
     index: number,
@@ -50,6 +52,8 @@ export type Result = {
     variant: string,
     dataset: string,
     level: string,
+    uncertainty: number,
+    attribute: number,
 };
 @Injectable({
     providedIn: 'root'
@@ -90,6 +94,8 @@ export class ResultsService {
         ['saturate', 'Tutorial 2: Saturation'],
         ['enclose', 'Tutorial 2: Enclosure']
     ]);
+
+    protected uncertaintyAttributeTaskMap: Map<string, { uncertainty: number, attribute: number }> = new Map();
 
 
     protected tutorialRepresenation: Map<string, string> = new Map([
@@ -158,8 +164,49 @@ export class ResultsService {
             encoding: this.params.encoding,
             variant: "",
             dataset: this.params.dataset,
-            level: this.params.level
+            level: this.params.level,
+            uncertainty: -1,
+            attribute: -1
         });
+    }
+
+    getUncertaintyAttributeTask(task: string):{ uncertainty: number, attribute: number } {
+        return this.uncertaintyAttributeTaskMap.get(task) || { uncertainty: -1, attribute: -1 };
+    }
+
+    public getFinalLevel(task: string, level: string): string {
+        let finalLevel = '';
+
+        const uncertaintyLevel = Math.random() < 0.5 ? '0' : '1';
+        const attributeLevel = Math.random() < 0.5 ? '0' : '1';
+
+        switch (task) { 
+            case 't1': 
+                finalLevel = level === 'low' ? '0.1' : '1.1'; 
+                break;
+            case 't2': 
+                finalLevel = level === 'low' ? '0.0' : '1.0'; 
+                break;
+            case 't3': 
+                finalLevel = level === 'high' ? '1.1' : '1.0'; 
+                break;
+            case 't4': 
+                finalLevel = level === 'high' ? '0.1' : '0.0'; 
+                break;
+            default: 
+                finalLevel = `${uncertaintyLevel}.${attributeLevel}`; 
+                break;
+        }
+
+        this.uncertaintyAttributeTaskMap.set(task, {
+            uncertainty: +finalLevel.split('.')[0],
+            attribute: +finalLevel.split('.')[1]
+        });
+
+        console.log(task, level, finalLevel);
+        console.log(this.uncertaintyAttributeTaskMap);
+
+        return finalLevel;
     }
 
     getUserParams(): Params | null {

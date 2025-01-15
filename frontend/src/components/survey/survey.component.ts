@@ -59,6 +59,8 @@ export class SurveyComponent {
                 variant: '',
                 dataset: '',
                 level: '',
+                uncertainty: -1,
+                attribute: -1,
                 answer: {
                     confirm: sender.data['question_intro_confirm'],
                     agreement: sender.data['question_intro_agree']
@@ -79,6 +81,8 @@ export class SurveyComponent {
                     variant: '',
                     dataset: '',
                     level: '',
+                    uncertainty: -1,
+                    attribute: -1,
                     answer: {
                         prolificId: sender.data['prolific_id'],
                         gender: sender.data['gender'],
@@ -105,6 +109,8 @@ export class SurveyComponent {
                     variant: '',
                     dataset: '',
                     level: '',
+                    uncertainty: -1,
+                    attribute: -1,
                     answer: ''
                 }, true);
 
@@ -124,6 +130,8 @@ export class SurveyComponent {
                     variant: '',
                     dataset: '',
                     level: '',
+                    uncertainty: -1,
+                    attribute: -1,
                     answer: ''
                 }, true);
 
@@ -141,6 +149,8 @@ export class SurveyComponent {
                     variant: '',
                     dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
                     level: this.resultsService.getUserParams()?.level || 'unknown',
+                    uncertainty: -1,
+                    attribute: -1,
                     answer: sender.data[`${options.oldCurrentPage.name}`]
                 }, true);
 
@@ -168,6 +178,8 @@ export class SurveyComponent {
                     variant: '',
                     dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
                     level: this.resultsService.getUserParams()?.level || 'unknown',
+                    uncertainty: -1,
+                    attribute: -1,
                     answer: qualitativeFeedback
                 });
                 return;
@@ -188,6 +200,8 @@ export class SurveyComponent {
                 encoding: options.oldCurrentPage.name.split('-')[0],
                 dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
                 level: this.resultsService.getUserParams()?.level || 'unknown',
+                uncertainty: this.resultsService.getUncertaintyAttributeTask(options.oldCurrentPage.name.split('-')[1]).uncertainty,
+                attribute: this.resultsService.getUncertaintyAttributeTask(options.oldCurrentPage.name.split('-')[1]).attribute,
                 answer: sender.data[`${options.oldCurrentPage.name}-answer`]
             });
         });
@@ -228,6 +242,8 @@ export class SurveyComponent {
                 variant: '',
                 dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
                 level: this.resultsService.getUserParams()?.level || 'unknown',
+                uncertainty: -1,
+                attribute: -1,
                 answer: iceTFeedback
             });
 

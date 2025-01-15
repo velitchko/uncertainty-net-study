@@ -145,33 +145,6 @@ export class DataService {
         return this.parsedData.get(fileName) || { nodes: [], edges: [], aesthetics: { strength: 0, charge: 0, xoffset: 0, yoffset: 0 } };
     }
 
-    public getFinalLevel(task: string, level: string): string {
-        let finalLevel = '';
-
-        const uncertaintyLevel = Math.random() < 0.5 ? '0' : '1';
-        const attributeLevel = Math.random() < 0.5 ? '0' : '1';
-
-        switch (task) { 
-            case 't1': 
-                finalLevel = level === 'low' ? '0.1' : '1.1'; 
-                break;
-            case 't2': 
-                finalLevel = level === 'low' ? '0.0' : '1.0'; 
-                break;
-            case 't3': 
-                finalLevel = level === 'high' ? '0.1' : '0.0'; 
-                break;
-            case 't4': 
-                finalLevel = level === 'high' ? '1.1' : '1.0'; 
-                break;
-            default: 
-                finalLevel = `${uncertaintyLevel}.${attributeLevel}`; 
-                break;
-        }
-
-        return finalLevel;
-    }
-
     private loadDataForDataset(dataset: string): void {
         const aestheticsFiles = this.dataFiles.filter(file => file.startsWith('aesth'));
         const nodesFiles = this.dataFiles.filter(file => file.startsWith('nodes'));

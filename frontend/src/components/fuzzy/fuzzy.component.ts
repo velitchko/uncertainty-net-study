@@ -41,7 +41,7 @@ export class FuzzyComponent implements AfterViewInit {
         const level = meta.split('-')[2];
         const task = meta.split('-')[3];
 
-        const finalLevel = this.dataService.getFinalLevel(task, level);
+        const finalLevel = this.resultsService.getFinalLevel(task, level);
         const fileName = `${dataset}_${variant}.${finalLevel}.json`;
 
         const graph = await this.dataService.loadFilename(fileName);
