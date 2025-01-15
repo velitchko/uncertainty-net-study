@@ -37,6 +37,7 @@ export type Result = {
     time: number, 
     task: string, 
     encoding: string, 
+    variant: string,
     dataset: string,
     level: string,
     answer: string | number | QualitativeAnswer | DemographicAnswer | AgreementAnswer
@@ -46,6 +47,7 @@ export type Result = {
     order: Array<string>,
     task?: string,
     encoding: string,
+    variant: string,
     dataset: string,
     level: string,
 };
@@ -154,6 +156,7 @@ export class ResultsService {
             time: 0,
             order: this.params.taskCodes,
             encoding: this.params.encoding,
+            variant: "",
             dataset: this.params.dataset,
             level: this.params.level
         });
@@ -171,6 +174,8 @@ export class ResultsService {
         // pushes result to local array
         this.results.push(result);
         if(increment) this.taskCounter++;
+
+        console.log(this.results);
     }
 
     setupSurvey(): void {
@@ -225,7 +230,7 @@ export class ResultsService {
 
             // construct question
             const question = {
-                name: `${approach}-${task}`,
+                name: `${approach}-${task}-${variant}`,
                 elements: [
                     {
                         type: 'html',
@@ -239,7 +244,7 @@ export class ResultsService {
                         type: this.questionMap.get(approach) as string,
                         description: this.titleMap.get(approach) as string,
                         title: this.params?.taskDescriptions[i],
-                        name: `${approach}-${task}`
+                        name: `${approach}-${task}-${variant}`
                     },
                     {
                         type: 'text',
@@ -247,7 +252,7 @@ export class ResultsService {
                         inputType: this.taskInputType.get(task) as string,
                         isRequired: true,
                         title: 'Answer',
-                        name: `${approach}-${task}-answer`
+                        name: `${approach}-${task}-${variant}-answer`
                     }
                 ]
             };

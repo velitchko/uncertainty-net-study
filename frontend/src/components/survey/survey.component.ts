@@ -56,6 +56,7 @@ export class SurveyComponent {
                 time: 0,
                 task: 'intro',
                 encoding: '',
+                variant: '',
                 dataset: '',
                 level: '',
                 answer: {
@@ -75,6 +76,7 @@ export class SurveyComponent {
                     time: 0,
                     task: 'demographics',
                     encoding: '',
+                    variant: '',
                     dataset: '',
                     level: '',
                     answer: {
@@ -100,6 +102,7 @@ export class SurveyComponent {
                     time: this.timer.end - this.timer.start,
                     task: 'tutorial-nl',
                     encoding: '',
+                    variant: '',
                     dataset: '',
                     level: '',
                     answer: ''
@@ -118,6 +121,7 @@ export class SurveyComponent {
                     time: this.timer.end - this.timer.start,
                     task: 'tutorial-rep',
                     encoding: '',
+                    variant: '',
                     dataset: '',
                     level: '',
                     answer: ''
@@ -132,10 +136,11 @@ export class SurveyComponent {
                 this.resultsService.pushResult({
                     index: -99,
                     time: 0,
-                    task: options.oldCurrentPage.name,
-                    encoding: '',
-                    dataset: '',
-                    level: '',
+                    task: options.oldCurrentPage.name.split('-')[1],
+                    encoding: this.resultsService.getUserParams()?.encoding || 'unknown',
+                    variant: '',
+                    dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
+                    level: this.resultsService.getUserParams()?.level || 'unknown',
                     answer: sender.data[`${options.oldCurrentPage.name}`]
                 }, true);
 
@@ -160,6 +165,7 @@ export class SurveyComponent {
                     time: 0,
                     task: 'qualitative-feedback',
                     encoding: '',
+                    variant: '',
                     dataset: '',
                     level: '',
                     answer: qualitativeFeedback
@@ -170,16 +176,18 @@ export class SurveyComponent {
             // update end time and record result
             this.timer.end = Date.now();
             const time = this.timer.end - this.timer.start;
+            
 
             // push to results
             this.resultsService.pushResult({
                 index: options.oldCurrentPage.visibleIndex,
                 time: time,
-                task: options.oldCurrentPage.name.split('-')[options.oldCurrentPage.name.split('-').length - 1],
+                task: options.oldCurrentPage.name.split('-')[1],
                 // GET SUBSTRING FROM START TO options.newCurrentPage.name.split('-')[options.newCurrentPage.name.split('-').length - 1]
+                variant: options.oldCurrentPage.name.split('-')[2],
                 encoding: options.oldCurrentPage.name.split('-')[0],
                 dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
-                level: options.oldCurrentPage.name.split('-')[2],
+                level: this.resultsService.getUserParams()?.level || 'unknown',
                 answer: sender.data[`${options.oldCurrentPage.name}-answer`]
             });
         });
@@ -217,6 +225,7 @@ export class SurveyComponent {
                 time: 0,
                 task: 'ice-t-feedback',
                 encoding: '',
+                variant: '',
                 dataset: '',
                 level: '',
                 answer: iceTFeedback
