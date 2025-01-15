@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ego-net-survey": {
+    "uncertainty-net-survey": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ego-net-survey",
+            "baseHref": "/",
+            "outputPath": "dist/uncertainty-net-survey",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -70,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ego-net-survey:build:production"
+              "browserTarget": "uncertainty-net-survey:build:production"
             },
             "development": {
-              "browserTarget": "ego-net-survey:build:development"
+              "browserTarget": "uncertainty-net-survey:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ego-net-survey:build"
+            "browserTarget": "uncertainty-net-survey:build"
           }
         },
         "test": {
