@@ -1,6 +1,7 @@
 {
-    "strength": 0.5,
-    "charge": -3000,
-    "xoffset": -100,
-    "yoffset": 50
+    "strength": 0.75,
+    "charge": -3700,
+    "distance": 80,
+    "xoffset": 0,
+    "yoffset": -50
 }
