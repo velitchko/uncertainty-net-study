@@ -164,10 +164,10 @@ export class SurveyComponent {
                     index: -99,
                     time: 0,
                     task: 'qualitative-feedback',
-                    encoding: '',
+                    encoding: this.resultsService.getUserParams()?.encoding || 'unknown',
                     variant: '',
-                    dataset: '',
-                    level: '',
+                    dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
+                    level: this.resultsService.getUserParams()?.level || 'unknown',
                     answer: qualitativeFeedback
                 });
                 return;
@@ -224,10 +224,10 @@ export class SurveyComponent {
                 index: -99,
                 time: 0,
                 task: 'ice-t-feedback',
-                encoding: '',
+                encoding: this.resultsService.getUserParams()?.encoding || 'unknown',
                 variant: '',
-                dataset: '',
-                level: '',
+                dataset: this.resultsService.getUserParams()?.dataset || 'unknown',
+                level: this.resultsService.getUserParams()?.level || 'unknown',
                 answer: iceTFeedback
             });
 
