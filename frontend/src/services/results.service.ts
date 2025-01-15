@@ -218,8 +218,6 @@ export class ResultsService {
         // pushes result to local array
         this.results.push(result);
         if(increment) this.taskCounter++;
-
-        console.log(this.results);
     }
 
     setupSurvey(): void {

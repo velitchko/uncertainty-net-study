@@ -66,7 +66,6 @@ export class SurveyComponent {
                     agreement: sender.data['question_intro_agree']
                 }
             });
-            console.log('⏰ Survey started');
         });
     
         this.survey.onCurrentPageChanged.add((sender, options) => {
@@ -100,7 +99,6 @@ export class SurveyComponent {
             if(options.oldCurrentPage.name === 'tutorial-nl') {
                 this.timer.end = Date.now();
 
-                console.log('📊 Tutorial Node-Link page');
                 this.resultsService.pushResult({
                     index: -99,
                     time: this.timer.end - this.timer.start,
@@ -121,7 +119,6 @@ export class SurveyComponent {
             if(options.oldCurrentPage.name === 'tutorial-rep') {
                 this.timer.end = Date.now();
 
-                console.log('📊 Tutorial Representation page');
                 this.resultsService.pushResult({
                     index: -99,
                     time: this.timer.end - this.timer.start,
