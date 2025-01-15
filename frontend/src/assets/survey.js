@@ -113,7 +113,7 @@ export const SURVEY_JSON = {
                     choices: ["Female", "Male", "Other", "Prefer not to specify"]
                 },
                 {
-                    type: "text", 
+                    type: "number", 
                     name: "age",
                     title: "Age",
                     isRequired: true
