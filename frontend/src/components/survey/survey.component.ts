@@ -249,7 +249,7 @@ export class SurveyComponent {
                 if (res) {
                     console.log(res);
                     this.completed = true;
-                    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); // TODO: Update with prolific link
+                    window.open('https://app.prolific.com/submissions/complete?cc=C1FJUP0K', '_blank'); // TODO: Update with prolific link
                 } else {
                     console.error('🚒 Error: no response received from backend');
                 }
