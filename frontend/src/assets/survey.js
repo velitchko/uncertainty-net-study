@@ -41,7 +41,7 @@ export const SURVEY_JSON = {
 
                     <ol style="list-style-type: decimal; padding-left: 2rem;">
                         <li>An anonymized, short questionnaire about your demographic information and background knowledge of networks</li>
-                        <li>Six questions that you will be tasked to complete as quickly and accurately as possible</li>
+                        <li>Eight questions that you will be tasked to complete as quickly and accurately as possible</li>
                         <li>A final questionnaire for you to provide optional and mandatory qualitative feedback</li>
                     </ol>
                     </p>
@@ -113,9 +113,11 @@ export const SURVEY_JSON = {
                     choices: ["Female", "Male", "Other", "Prefer not to specify"]
                 },
                 {
-                    type: "number", 
+                    type: "text", 
                     name: "age",
                     title: "Age",
+                    inputType: "number",
+                    placeHolder: "e.g., 18",
                     isRequired: true
                 },
                 {
