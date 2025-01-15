@@ -203,9 +203,6 @@ export class ResultsService {
             attribute: +finalLevel.split('.')[1]
         });
 
-        console.log(task, level, finalLevel);
-        console.log(this.uncertaintyAttributeTaskMap);
-
         return finalLevel;
     }
 
@@ -343,8 +340,6 @@ export class ResultsService {
             SURVEY_JSON.pages.push(iceTPage);
         }
 
-        console.log(SURVEY_JSON);
-        
         this.surveySetup = true;
     }
 
@@ -361,7 +356,6 @@ export class ResultsService {
     }
 
     submitResults(): Observable<any> {
-        console.log(this.results);
         // submits results to backend
         return this.http.post(`${CONFIG.API_BASE}results`, { params: this.params, results: this.results });
     }

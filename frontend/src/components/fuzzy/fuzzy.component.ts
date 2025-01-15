@@ -83,9 +83,6 @@ export class FuzzyComponent implements AfterViewInit {
     }
 
     drawGraph(graph: { nodes: NodeExt[], edges: EdgeExt[] }): void {
-        console.log('FuzzyComponent: drawGraph: graph', graph);
-        console.log('FuzzyComponent: drawGraph: nodes', graph.nodes);
-        console.log('FuzzyComponent: drawGraph: edges', graph.edges);
 
         const svg = d3.select('#fuzzy-container')
             .attr('width', this.width + this.margin.left + this.margin.right)
