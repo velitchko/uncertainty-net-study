@@ -1,1 +1,182 @@
-[{"source": "DN", "target": "GR"}, {"source": "DN", "target": "HQ"}, {"source": "DN", "target": "NR"}, {"source": "DN", "target": "OG"}, {"source": "DN", "target": "ME"}, {"source": "DN", "target": "OZ"}, {"source": "DN", "target": "JS"}, {"source": "GR", "target": "HQ"}, {"source": "GR", "target": "DQ"}, {"source": "GR", "target": "GO"}, {"source": "GR", "target": "QD"}, {"source": "NR", "target": "WJ"}, {"source": "NR", "target": "XV"}, {"source": "NR", "target": "DQ"}, {"source": "NR", "target": "DY"}, {"source": "NR", "target": "HG"}, {"source": "OG", "target": "VL"}, {"source": "ME", "target": "MA"}, {"source": "ME", "target": "HG"}, {"source": "ME", "target": "GO"}, {"source": "PC", "target": "TM"}, {"source": "PC", "target": "WJ"}, {"source": "TM", "target": "DI"}, {"source": "WJ", "target": "DQ"}, {"source": "WJ", "target": "QD"}, {"source": "YG", "target": "KR"}, {"source": "XV", "target": "DI"}, {"source": "DI", "target": "DY"}, {"source": "DI", "target": "VB"}, {"source": "DI", "target": "GE"}, {"source": "XP", "target": "DO"}, {"source": "DO", "target": "JZ"}, {"source": "VL", "target": "MA"}, {"source": "MA", "target": "NU"}, {"source": "NU", "target": "DQ"}, {"source": "DQ", "target": "EE"}, {"source": "DQ", "target": "QD"}, {"source": "HG", "target": "VB"}, {"source": "HG", "target": "JQ"}, {"source": "GO", "target": "QD"}, {"source": "JZ", "target": "OC"}]
+[
+    {
+        "source": "DN",
+        "target": "GR"
+    },
+    {
+        "source": "DN",
+        "target": "HQ"
+    },
+    {
+        "source": "DN",
+        "target": "NR"
+    },
+    {
+        "source": "DN",
+        "target": "OG"
+    },
+    {
+        "source": "DN",
+        "target": "ME"
+    },
+    {
+        "source": "DN",
+        "target": "OZ"
+    },
+    {
+        "source": "DN",
+        "target": "JS"
+    },
+    {
+        "source": "GR",
+        "target": "HQ"
+    },
+    {
+        "source": "GR",
+        "target": "DQ"
+    },
+    {
+        "source": "GR",
+        "target": "GO"
+    },
+    {
+        "source": "GR",
+        "target": "QD"
+    },
+    {
+        "source": "NR",
+        "target": "WJ"
+    },
+    {
+        "source": "NR",
+        "target": "XV"
+    },
+    {
+        "source": "NR",
+        "target": "DQ"
+    },
+    {
+        "source": "NR",
+        "target": "DY"
+    },
+    {
+        "source": "NR",
+        "target": "HG"
+    },
+    {
+        "source": "OG",
+        "target": "VL"
+    },
+    {
+        "source": "ME",
+        "target": "MA"
+    },
+    {
+        "source": "ME",
+        "target": "HG"
+    },
+    {
+        "source": "ME",
+        "target": "GO"
+    },
+    {
+        "source": "PC",
+        "target": "TM"
+    },
+    {
+        "source": "PC",
+        "target": "WJ"
+    },
+    {
+        "source": "TM",
+        "target": "DI"
+    },
+    {
+        "source": "WJ",
+        "target": "DQ"
+    },
+    {
+        "source": "WJ",
+        "target": "QD"
+    },
+    {
+        "source": "YG",
+        "target": "KR"
+    },
+    {
+        "source": "XV",
+        "target": "DI"
+    },
+    {
+        "source": "DI",
+        "target": "DY"
+    },
+    {
+        "source": "DI",
+        "target": "VB"
+    },
+    {
+        "source": "DI",
+        "target": "GE"
+    },
+    {
+        "source": "XP",
+        "target": "DO"
+    },
+    {
+        "source": "DO",
+        "target": "JZ"
+    },
+    {
+        "source": "VL",
+        "target": "MA"
+    },
+    {
+        "source": "MA",
+        "target": "NU"
+    },
+    {
+        "source": "NU",
+        "target": "DQ"
+    },
+    {
+        "source": "DQ",
+        "target": "EE"
+    },
+    {
+        "source": "DQ",
+        "target": "QD"
+    },
+    {
+        "source": "HG",
+        "target": "VB"
+    },
+    {
+        "source": "HG",
+        "target": "JQ"
+    },
+    {
+        "source": "GO",
+        "target": "QD"
+    },
+    {
+        "source": "JZ",
+        "target": "OC"
+    },
+    {
+        "source": "PC",
+        "target": "YG"
+    },
+    {
+        "source": "VL",
+        "target": "OC"
+    },
+    {
+        "source": "VL",
+        "target": "JZ"
+    },
+    {
+        "source": "XP",
+        "target": "JQ"
+    }
+]
