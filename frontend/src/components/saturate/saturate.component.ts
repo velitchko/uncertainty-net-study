@@ -143,7 +143,7 @@ export class SaturateComponent implements AfterViewInit {
                 .style('font-family', '\'Fira Mono\', monospace');
 
         this.simulation = d3.forceSimulation(graph.nodes)
-            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).strength(this.aesthetics.strength).links(graph.edges))
+            .force('link', d3.forceLink(graph.edges).id((d: any) => (d as NodeExt).id).distance(this.aesthetics.distance).strength(this.aesthetics.strength).links(graph.edges))
             .force('charge', d3.forceManyBody().strength(this.aesthetics.charge))
             .force('center', d3.forceCenter(this.width / 2, this.height / 2))
             .on('tick', this.ticked.bind(this));
