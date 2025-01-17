@@ -19,8 +19,7 @@ const taskDescriptions = new Map([
     ['t8', 'Which node has the fewest number of neighbors? If multiple answers are possible, select only one.']
 ]);
 
-// TODO: Increase to 20 later
-const threshold = 1;
+const threshold = 10;
 
 app.use(express.json());
 app.use(cors());
@@ -49,8 +48,6 @@ app.get('/params', (req, res) => {
         const [encoding, dataset, level] = params.split('_');
         userAssignments[encoding][dataset][level]++;
     });
-
-    console.log(userAssignments);
 
     let assignedEncoding, assignedDataset, assignedLevel;
 
