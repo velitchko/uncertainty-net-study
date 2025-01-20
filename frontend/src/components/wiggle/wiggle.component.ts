@@ -65,22 +65,22 @@ export class WiggleComponent implements AfterViewInit {
 
     private ticked(): void {
         this.edges
-            .attr('x1', (d: EdgeExt) => d.source.x)
-            .attr('y1', (d: EdgeExt) => d.source.y)
-            .attr('x2', (d: EdgeExt) => d.target.x)
-            .attr('y2', (d: EdgeExt) => d.target.y);
+            .attr('x1', (d: EdgeExt) => d.source.x + this.aesthetics.xoffset)
+            .attr('y1', (d: EdgeExt) => d.source.y + this.aesthetics.yoffset)
+            .attr('x2', (d: EdgeExt) => d.target.x + this.aesthetics.xoffset)
+            .attr('y2', (d: EdgeExt) => d.target.y + this.aesthetics.yoffset);
 
         this.buffer
-            .attr('cx', (d: NodeExt) => d.x)
-            .attr('cy', (d: NodeExt) => d.y);
+            .attr('cx', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('cy', (d: NodeExt) => d.y + this.aesthetics.yoffset);
 
         this.nodes
-            .attr('cx', (d: NodeExt) => d.x)
-            .attr('cy', (d: NodeExt) => d.y);
+            .attr('cx', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('cy', (d: NodeExt) => d.y + this.aesthetics.yoffset);
 
         this.labels
-            .attr('x', (d: NodeExt) => d.x)
-            .attr('y', (d: NodeExt) => d.y);
+            .attr('x', (d: NodeExt) => d.x + this.aesthetics.xoffset)
+            .attr('y', (d: NodeExt) => d.y + this.aesthetics.yoffset);
     }
 
     private random(): void {
